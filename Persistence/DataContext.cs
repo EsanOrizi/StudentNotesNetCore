@@ -12,6 +12,8 @@ namespace Persistence
 
         public DbSet<Student> Students { get; set; }
 
+        public DbSet<Note> Notes { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

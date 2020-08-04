@@ -1,56 +1,53 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using Application.Students;
 using Domain;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Persistence;
 
 namespace API.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
     public class StudentsController : ControllerBase
     {
-        private readonly DataContext _context;
-        public StudentsController(DataContext context)
+        private readonly IMediator _mediator;
+        public StudentsController(IMediator mediator)
         {
-            _context = context;
+            _mediator = mediator;
         }
 
-        // GET api/students
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Student>>> Get()
+        public async Task<ActionResult<List<Student>>> List()
         {
-            var values = await _context.Students.ToListAsync();
-            return Ok(values);
+            return await _mediator.Send(new List.Query());
         }
 
-        // GET api/students/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Student>> Get(int id)
+        public async Task<ActionResult<Student>> Details(int id)
         {
-            var value = await _context.Students.FindAsync(id);
-            return Ok(value);
+            return await _mediator.Send(new Details.Query { Id = id });
         }
 
-        // POST api/students
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult<Unit>> Create(Create.Command command)
         {
+            return await _mediator.Send(command);
         }
 
-        // PUT api/students/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<ActionResult<Unit>> Edit(int id, Edit.Command command)
         {
+            command.Id = id;
+            return await _mediator.Send(command);
         }
 
-        // DELETE api/students/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult<Unit>> Delete(int id)
         {
+            return await _mediator.Send(new Delete.Command { Id = id });
         }
+
     }
 }
