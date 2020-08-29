@@ -1,20 +1,20 @@
-import React from "react";
-import { Grid } from "semantic-ui-react";
-import { IStudent } from "../../../app/models/student";
-import StudentList from "./StudentList";
-import StudentDetails from "../details/StudentDetails";
-import StudentForm from "../form/StudentForm";
+import React from 'react';
+import { Grid } from 'semantic-ui-react';
+import { IStudent } from '../../../app/models/student';
+import StudentList from './StudentList';
+import StudentDetails from '../details/StudentDetails';
+import StudentForm from '../form/StudentForm';
 
 interface IProps {
   students: IStudent[];
-  selectStudent: (id: number) => void;
+  selectStudent: (id: string) => void;
   selectedStudent: IStudent | null;
   editMode: boolean;
   setEditMode: (editMode: boolean) => void;
   setSelectedStudent: (student: IStudent | null) => void;
   createStudent: (student: IStudent) => void;
   editStudent: (student: IStudent) => void;
-  deleteStudent: (id: number) => void;
+  deleteStudent: (id: string) => void;
 }
 
 const StudentDashboard: React.FC<IProps> = ({

@@ -1,6 +1,7 @@
-import React, { useState, FormEvent } from "react";
-import { Segment, Form, Button } from "semantic-ui-react";
-import { IStudent } from "../../../app/models/student";
+import React, { useState, FormEvent } from 'react';
+import { Segment, Form, Button } from 'semantic-ui-react';
+import { IStudent } from '../../../app/models/student';
+import { v4 as uuid } from 'uuid';
 
 interface IProps {
   setEditMode: (editMode: boolean) => void;
@@ -20,10 +21,10 @@ const StudentForm: React.FC<IProps> = ({
       return initializeFormState;
     } else {
       return {
-        id: 0,
-        name: "",
-        address: "",
-        phone: "",
+        id: '',
+        name: '',
+        address: '',
+        phone: '',
       };
     }
   };
@@ -31,10 +32,10 @@ const StudentForm: React.FC<IProps> = ({
   const [student, setStudent] = useState<IStudent>(initializeForm);
 
   const handleSubmit = () => {
-    if (student.id === 0) {
+    if (student.id.length === 0) {
       let newStudent = {
         ...student,
-        id: 0,
+        id: uuid(),
       };
       createStudent(newStudent);
     } else {

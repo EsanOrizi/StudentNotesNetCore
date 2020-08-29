@@ -1,11 +1,11 @@
-import React from "react";
-import { Item, Button, Segment } from "semantic-ui-react";
-import { IStudent } from "../../../app/models/student";
+import React from 'react';
+import { Item, Button, Segment } from 'semantic-ui-react';
+import { IStudent } from '../../../app/models/student';
 
 interface IProps {
   students: IStudent[];
-  selectStudent: (id: number) => void;
-  deleteStudent: (id: number) => void;
+  selectStudent: (id: string) => void;
+  deleteStudent: (id: string) => void;
 }
 
 const StudentList: React.FC<IProps> = ({

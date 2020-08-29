@@ -1,16 +1,16 @@
-import React, { useState, useEffect, Fragment } from "react";
-import { Container } from "semantic-ui-react";
-import axios from "axios";
-import { IStudent } from "../models/student";
-import NavBar from "../../features/nav/NavBar";
-import StudentDashboard from "../../features/students/dashboard/StudentDashboard";
+import React, { useState, useEffect, Fragment } from 'react';
+import { Container } from 'semantic-ui-react';
+import axios from 'axios';
+import { IStudent } from '../models/student';
+import NavBar from '../../features/nav/NavBar';
+import StudentDashboard from '../../features/students/dashboard/StudentDashboard';
 
 const App = () => {
   const [students, setStudents] = useState<IStudent[]>([]);
   const [selectedStudent, setSelectedStudent] = useState<IStudent | null>(null);
   const [editMode, setEditMode] = useState(false);
 
-  const handleSelectStudent = (id: number) => {
+  const handleSelectStudent = (id: string) => {
     setSelectedStudent(students.filter((a) => a.id === id)[0]);
     setEditMode(false);
   };
@@ -32,13 +32,13 @@ const App = () => {
     setEditMode(false);
   };
 
-  const handleDeleteStudent = (id: number) => {
+  const handleDeleteStudent = (id: string) => {
     setStudents([...students.filter((a) => a.id !== id)]);
   };
 
   useEffect(() => {
     axios
-      .get<IStudent[]>("http://localhost:5000/api/students")
+      .get<IStudent[]>('http://localhost:5000/api/students')
       .then((response) => {
         setStudents(response.data);
       });
@@ -47,7 +47,7 @@ const App = () => {
   return (
     <Fragment>
       <NavBar openCreateForm={handleOpenCreateForm} />
-      <Container style={{ marginTop: "7em" }}>
+      <Container style={{ marginTop: '7em' }}>
         <StudentDashboard
           students={students}
           selectStudent={handleSelectStudent}
