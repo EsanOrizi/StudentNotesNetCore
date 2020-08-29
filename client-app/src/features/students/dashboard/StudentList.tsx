@@ -1,18 +1,16 @@
-import React from 'react';
+import React, { SyntheticEvent } from 'react';
 import { Item, Button, Segment } from 'semantic-ui-react';
 import { IStudent } from '../../../app/models/student';
 
 interface IProps {
   students: IStudent[];
   selectStudent: (id: string) => void;
-  deleteStudent: (id: string) => void;
+  deleteStudent: (event: SyntheticEvent<HTMLButtonElement>, id: string) => void;
+  submitting: boolean;
+  target: string;
 }
 
-const StudentList: React.FC<IProps> = ({
-  students,
-  selectStudent,
-  deleteStudent,
-}) => {
+const StudentList: React.FC<IProps> = ({ students, selectStudent, deleteStudent, submitting, target }) => {
   return (
     <Segment clearing>
       <Item.Group divided>
@@ -26,14 +24,11 @@ const StudentList: React.FC<IProps> = ({
                 <div>{student.phone}</div>
               </Item.Description>
               <Item.Extra>
+                <Button onClick={() => selectStudent(student.id)} floated="right" content="View" color="blue" />
                 <Button
-                  onClick={() => selectStudent(student.id)}
-                  floated="right"
-                  content="View"
-                  color="blue"
-                />
-                <Button
-                  onClick={() => deleteStudent(student.id)}
+                  name={student.id}
+                  loading={target === student.id && submitting}
+                  onClick={(e) => deleteStudent(e, student.id)}
                   floated="right"
                   content="Delete"
                   color="red"

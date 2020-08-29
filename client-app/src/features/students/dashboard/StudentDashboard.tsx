@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { SyntheticEvent } from 'react';
 import { Grid } from 'semantic-ui-react';
 import { IStudent } from '../../../app/models/student';
 import StudentList from './StudentList';
@@ -14,7 +14,9 @@ interface IProps {
   setSelectedStudent: (student: IStudent | null) => void;
   createStudent: (student: IStudent) => void;
   editStudent: (student: IStudent) => void;
-  deleteStudent: (id: string) => void;
+  deleteStudent: (e: SyntheticEvent<HTMLButtonElement>, id: string) => void;
+  submitting: boolean;
+  target: string;
 }
 
 const StudentDashboard: React.FC<IProps> = ({
@@ -27,6 +29,8 @@ const StudentDashboard: React.FC<IProps> = ({
   createStudent,
   editStudent,
   deleteStudent,
+  submitting,
+  target,
 }) => {
   return (
     <Grid>
@@ -35,15 +39,13 @@ const StudentDashboard: React.FC<IProps> = ({
           students={students}
           selectStudent={selectStudent}
           deleteStudent={deleteStudent}
+          submitting={submitting}
+          target={target}
         />
       </Grid.Column>
       <Grid.Column width={6}>
         {selectedStudent && !editMode && (
-          <StudentDetails
-            student={selectedStudent}
-            setEditMode={setEditMode}
-            setSelectedStudent={setSelectedStudent}
-          />
+          <StudentDetails student={selectedStudent} setEditMode={setEditMode} setSelectedStudent={setSelectedStudent} />
         )}
         {editMode && (
           <StudentForm
@@ -52,6 +54,7 @@ const StudentDashboard: React.FC<IProps> = ({
             student={selectedStudent!}
             createStudent={createStudent}
             editStudent={editStudent}
+            submitting={submitting}
           />
         )}
       </Grid.Column>

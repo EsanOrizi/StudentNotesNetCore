@@ -1,14 +1,18 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect, Fragment, SyntheticEvent } from 'react';
 import { Container } from 'semantic-ui-react';
-import axios from 'axios';
 import { IStudent } from '../models/student';
 import NavBar from '../../features/nav/NavBar';
 import StudentDashboard from '../../features/students/dashboard/StudentDashboard';
+import agent from '../api/agent';
+import LoadingComponent from './LoadingComponent';
 
 const App = () => {
   const [students, setStudents] = useState<IStudent[]>([]);
   const [selectedStudent, setSelectedStudent] = useState<IStudent | null>(null);
   const [editMode, setEditMode] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
+  const [target, setTarget] = useState('');
 
   const handleSelectStudent = (id: string) => {
     setSelectedStudent(students.filter((a) => a.id === id)[0]);
@@ -21,28 +25,50 @@ const App = () => {
   };
 
   const handleCreateStudent = (student: IStudent) => {
-    setStudents([...students, student]);
-    setSelectedStudent(student);
-    setEditMode(false);
+    setSubmitting(true);
+    agent.Students.create(student)
+      .then(() => {
+        setStudents([...students, student]);
+        setSelectedStudent(student);
+        setEditMode(false);
+      })
+      .then(() => setSubmitting(false));
   };
 
   const handleEditStudent = (student: IStudent) => {
-    setStudents([...students.filter((a) => a.id !== student.id), student]);
-    setSelectedStudent(student);
-    setEditMode(false);
+    setSubmitting(true);
+    agent.Students.update(student)
+      .then(() => {
+        setStudents([...students.filter((a) => a.id !== student.id), student]);
+        setSelectedStudent(student);
+        setEditMode(false);
+      })
+      .then(() => setSubmitting(false));
   };
 
-  const handleDeleteStudent = (id: string) => {
-    setStudents([...students.filter((a) => a.id !== id)]);
+  const handleDeleteStudent = (event: SyntheticEvent<HTMLButtonElement>, id: string) => {
+    setSubmitting(true);
+    setTarget(event.currentTarget.name);
+    agent.Students.delete(id)
+      .then(() => {
+        setStudents([...students.filter((a) => a.id !== id)]);
+      })
+      .then(() => setSubmitting(false));
   };
 
   useEffect(() => {
-    axios
-      .get<IStudent[]>('http://localhost:5000/api/students')
+    agent.Students.list()
       .then((response) => {
-        setStudents(response.data);
-      });
+        let students: IStudent[] = [];
+        response.forEach((student) => {
+          students.push(student);
+        });
+        setStudents(response);
+      })
+      .then(() => setLoading(false));
   }, []);
+
+  if (loading) return <LoadingComponent content="Loading students..." />;
 
   return (
     <Fragment>
@@ -58,6 +84,8 @@ const App = () => {
           createStudent={handleCreateStudent}
           editStudent={handleEditStudent}
           deleteStudent={handleDeleteStudent}
+          submitting={submitting}
+          target={target}
         />
       </Container>
     </Fragment>

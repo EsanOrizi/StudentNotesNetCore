@@ -8,6 +8,7 @@ interface IProps {
   student: IStudent;
   createStudent: (student: IStudent) => void;
   editStudent: (student: IStudent) => void;
+  submitting: boolean;
 }
 
 const StudentForm: React.FC<IProps> = ({
@@ -15,6 +16,7 @@ const StudentForm: React.FC<IProps> = ({
   student: initializeFormState,
   createStudent,
   editStudent,
+  submitting,
 }) => {
   const initializeForm = () => {
     if (initializeFormState) {
@@ -71,7 +73,13 @@ const StudentForm: React.FC<IProps> = ({
           placeholder="Phone"
           value={student.phone}
         />
-        <Button floated="right" positive type="submit" content="submit" />
+        <Button
+          loading={submitting}
+          floated="right"
+          positive
+          type="submit"
+          content="submit"
+        />
         <Button
           onClick={() => setEditMode(false)}
           floated="right"
