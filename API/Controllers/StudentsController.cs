@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.Students;
@@ -25,7 +26,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Student>> Details(int id)
+        public async Task<ActionResult<Student>> Details(Guid id)
         {
             return await _mediator.Send(new Details.Query { Id = id });
         }
@@ -37,14 +38,14 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<Unit>> Edit(int id, Edit.Command command)
+        public async Task<ActionResult<Unit>> Edit(Guid id, Edit.Command command)
         {
             command.Id = id;
             return await _mediator.Send(command);
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Unit>> Delete(int id)
+        public async Task<ActionResult<Unit>> Delete(Guid id)
         {
             return await _mediator.Send(new Delete.Command { Id = id });
         }
