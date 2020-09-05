@@ -1,20 +1,17 @@
-import React, { SyntheticEvent } from 'react';
+import React, { useContext } from 'react';
 import { Item, Button, Segment } from 'semantic-ui-react';
-import { IStudent } from '../../../app/models/student';
+import { observer } from 'mobx-react-lite';
+import StudentStore from '../../../app/stores/studentStore';
 
-interface IProps {
-  students: IStudent[];
-  selectStudent: (id: string) => void;
-  deleteStudent: (event: SyntheticEvent<HTMLButtonElement>, id: string) => void;
-  submitting: boolean;
-  target: string;
-}
+const StudentList: React.FC = () => {
+  const studentStore = useContext(StudentStore);
+  const { studentArrayFromMap, selectStudent, deleteStudent, submitting, target } = studentStore;
 
-const StudentList: React.FC<IProps> = ({ students, selectStudent, deleteStudent, submitting, target }) => {
   return (
+    // console.log(student.id);
     <Segment clearing>
       <Item.Group divided>
-        {students.map((student) => (
+        {studentArrayFromMap.map((student) => (
           <Item key={student.id}>
             <Item.Content>
               <Item.Header as="a">{student.name}</Item.Header>
@@ -42,4 +39,4 @@ const StudentList: React.FC<IProps> = ({ students, selectStudent, deleteStudent,
   );
 };
 
-export default StudentList;
+export default observer(StudentList);
