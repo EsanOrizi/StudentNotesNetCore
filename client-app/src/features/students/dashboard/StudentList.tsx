@@ -2,10 +2,11 @@ import React, { useContext } from 'react';
 import { Item, Button, Segment } from 'semantic-ui-react';
 import { observer } from 'mobx-react-lite';
 import StudentStore from '../../../app/stores/studentStore';
+import { Link } from 'react-router-dom';
 
 const StudentList: React.FC = () => {
   const studentStore = useContext(StudentStore);
-  const { studentArrayFromMap, selectStudent, deleteStudent, submitting, target } = studentStore;
+  const { studentArrayFromMap, deleteStudent, submitting, target } = studentStore;
 
   return (
     // console.log(student.id);
@@ -21,7 +22,7 @@ const StudentList: React.FC = () => {
                 <div>{student.phone}</div>
               </Item.Description>
               <Item.Extra>
-                <Button onClick={() => selectStudent(student.id)} floated="right" content="View" color="blue" />
+                <Button as={Link} to={`/students/${student.id}`} floated="right" content="View" color="blue" />
                 <Button
                   name={student.id}
                   loading={target === student.id && submitting}

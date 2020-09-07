@@ -1,31 +1,41 @@
-import React, { useState, FormEvent, useContext } from 'react';
+import React, { useState, FormEvent, useContext, useEffect } from 'react';
 import { Segment, Form, Button } from 'semantic-ui-react';
 import { IStudent } from '../../../app/models/student';
 import { v4 as uuid } from 'uuid';
 import StudentStore from '../../../app/stores/studentStore';
 import { observer } from 'mobx-react-lite';
+import { RouteComponentProps } from 'react-router-dom';
 
-interface IProps {
-  student: IStudent;
+interface DetailsParams {
+  id: string;
 }
 
-const StudentForm: React.FC<IProps> = ({ student: initializeFormState }) => {
+const StudentForm: React.FC<RouteComponentProps<DetailsParams>> = ({ match, history }) => {
   const studentStore = useContext(StudentStore);
-  const { createStudent, editStudent, submitting, cancelFormOpen } = studentStore;
-  const initializeForm = () => {
-    if (initializeFormState) {
-      return initializeFormState;
-    } else {
-      return {
-        id: '',
-        name: '',
-        address: '',
-        phone: '',
-      };
-    }
-  };
+  const {
+    createStudent,
+    editStudent,
+    submitting,
+    student: initializeFormState,
+    loadStudent,
+    clearStudent,
+  } = studentStore;
 
-  const [student, setStudent] = useState<IStudent>(initializeForm);
+  const [student, setStudent] = useState<IStudent>({
+    id: '',
+    name: '',
+    address: '',
+    phone: '',
+  });
+
+  useEffect(() => {
+    if (match.params.id && student.id.length === 0) {
+      loadStudent(match.params.id).then(() => initializeFormState && setStudent(initializeFormState));
+    }
+    return () => {
+      clearStudent();
+    };
+  }, [loadStudent, clearStudent, match.params.id, initializeFormState, student.id.length]);
 
   const handleSubmit = () => {
     if (student.id.length === 0) {
@@ -33,9 +43,9 @@ const StudentForm: React.FC<IProps> = ({ student: initializeFormState }) => {
         ...student,
         id: uuid(),
       };
-      createStudent(newStudent);
+      createStudent(newStudent).then(() => history.push(`/students/${newStudent.id}`));
     } else {
-      editStudent(student);
+      editStudent(student).then(() => history.push(`/students/${student.id}`));
     }
   };
 
@@ -51,7 +61,7 @@ const StudentForm: React.FC<IProps> = ({ student: initializeFormState }) => {
         <Form.Input onChange={handleInputChange} name="address" placeholder="Address" value={student.address} />
         <Form.Input onChange={handleInputChange} name="phone" placeholder="Phone" value={student.phone} />
         <Button loading={submitting} floated="right" positive type="submit" content="submit" />
-        <Button onClick={cancelFormOpen} floated="right" type="button" content="Cancel" />
+        <Button onClick={() => history.push('/students')} floated="right" type="button" content="Cancel" />
       </Form>
     </Segment>
   );

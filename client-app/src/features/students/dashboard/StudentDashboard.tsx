@@ -1,14 +1,18 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Grid } from 'semantic-ui-react';
 import StudentList from './StudentList';
-import StudentDetails from '../details/StudentDetails';
-import StudentForm from '../form/StudentForm';
 import { observer } from 'mobx-react-lite';
 import StudentStore from '../../../app/stores/studentStore';
+import LoadingComponent from '../../../app/layout/LoadingComponent';
 
 const StudentDashboard: React.FC = () => {
   const studentStore = useContext(StudentStore);
-  const { editMode, selectedStudent } = studentStore;
+
+  useEffect(() => {
+    studentStore.loadStudents();
+  }, [studentStore]);
+
+  if (studentStore.loadingInitial) return <LoadingComponent content="Loading students..." />;
 
   return (
     <Grid>
@@ -16,8 +20,7 @@ const StudentDashboard: React.FC = () => {
         <StudentList />
       </Grid.Column>
       <Grid.Column width={6}>
-        {selectedStudent && !editMode && <StudentDetails />}
-        {editMode && <StudentForm key={(selectedStudent && selectedStudent.id) || 0} student={selectedStudent!} />}
+        <h1>student filters</h1>
       </Grid.Column>
     </Grid>
   );

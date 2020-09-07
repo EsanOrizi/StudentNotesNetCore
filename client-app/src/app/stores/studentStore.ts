@@ -8,10 +8,8 @@ configure({ enforceActions: 'always' });
 
 class StudentStore {
   @observable studentRegistry = new Map();
-  @observable students: IStudent[] = [];
-  @observable selectedStudent: IStudent | undefined;
+  @observable student: IStudent | null = null;
   @observable loadingInitial = false;
-  @observable editMode = false;
   @observable submitting = false;
   @observable target = '';
 
@@ -37,13 +35,37 @@ class StudentStore {
     }
   };
 
+  @action loadStudent = async (id: string) => {
+    let student = this.getStudent(id);
+    if (student) {
+      this.student = student;
+    } else {
+      this.loadingInitial = true;
+      try {
+        student = await agent.Students.details(id);
+        runInAction(() => {
+          this.student = student;
+          this.loadingInitial = false;
+        });
+      } catch (error) {
+        runInAction(() => {
+          this.loadingInitial = false;
+        });
+        console.log(error);
+      }
+    }
+  };
+
+  getStudent = (id: string) => {
+    return this.studentRegistry.get(id);
+  };
+
   @action createStudent = async (student: IStudent) => {
     this.submitting = true;
     try {
       await agent.Students.create(student);
       runInAction(() => {
         this.studentRegistry.set(student.id, student);
-        this.editMode = false;
         this.submitting = false;
       });
     } catch (error) {
@@ -61,8 +83,7 @@ class StudentStore {
       await agent.Students.update(student);
       runInAction(() => {
         this.studentRegistry.set(student.id, student);
-        this.selectedStudent = student;
-        this.editMode = false;
+        this.student = student;
         this.submitting = false;
       });
     } catch (error) {
@@ -93,27 +114,8 @@ class StudentStore {
     }
   };
 
-  @action openCreateForm = () => {
-    this.editMode = true;
-    this.selectedStudent = undefined;
-  };
-
-  @action openEditForm = (id: string) => {
-    this.selectedStudent = this.studentRegistry.get(id);
-    this.editMode = true;
-  };
-
-  @action cancelSelectedActivity = () => {
-    this.selectedStudent = undefined;
-  };
-
-  @action cancelFormOpen = () => {
-    this.editMode = false;
-  };
-
-  @action selectStudent = (id: string) => {
-    this.selectedStudent = this.studentRegistry.get(id);
-    this.editMode = false;
+  @action clearStudent = () => {
+    this.student = null;
   };
 }
 
