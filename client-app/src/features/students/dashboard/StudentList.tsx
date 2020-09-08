@@ -9,7 +9,6 @@ const StudentList: React.FC = () => {
   const { studentArrayFromMap, deleteStudent, submitting, target } = studentStore;
 
   return (
-    // console.log(student.id);
     <Segment clearing>
       <Item.Group divided>
         {studentArrayFromMap.map((student) => (

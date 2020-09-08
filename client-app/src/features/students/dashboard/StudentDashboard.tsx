@@ -19,9 +19,6 @@ const StudentDashboard: React.FC = () => {
       <Grid.Column width={10}>
         <StudentList />
       </Grid.Column>
-      <Grid.Column width={6}>
-        <h1>student filters</h1>
-      </Grid.Column>
     </Grid>
   );
 };

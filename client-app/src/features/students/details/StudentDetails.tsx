@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { Card, Image, Button } from 'semantic-ui-react';
+import { Card, Button } from 'semantic-ui-react';
 import StudentStore from '../../../app/stores/studentStore';
 import { observer } from 'mobx-react-lite';
 import { RouteComponentProps, Link } from 'react-router-dom';
@@ -20,7 +20,6 @@ const StudentDetails: React.FC<RouteComponentProps<DetailParams>> = ({ match, hi
   if (loadingInitial || !student) return <LoadingComponent content="loading student" />;
   return (
     <Card fluid>
-      <Image src="/assets/placeholder.png" wrapped ui={false} />
       <Card.Content>
         <Card.Header>{student!.name}</Card.Header>
         <Card.Description>{student!.address}</Card.Description>
