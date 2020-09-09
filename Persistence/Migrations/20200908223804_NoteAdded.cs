@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Persistence.Migrations
 {
-    public partial class NoteEntityAdded : Migration
+    public partial class NoteAdded : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,10 +13,10 @@ namespace Persistence.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    ProgressRating = table.Column<byte>(nullable: false),
+                    ProgressRating = table.Column<int>(nullable: false),
                     ExtraNote = table.Column<string>(nullable: true),
                     DateAdded = table.Column<DateTime>(nullable: false),
-                    StudentId = table.Column<int>(nullable: false)
+                    StudentId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {

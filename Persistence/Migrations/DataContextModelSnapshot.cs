@@ -16,6 +16,34 @@ namespace Persistence.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.0.0");
 
+            modelBuilder.Entity("Domain.Note", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ExtraNote")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ProgressRating")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid>("StudentId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("Notes");
+                });
+
             modelBuilder.Entity("Domain.Student", b =>
                 {
                     b.Property<Guid>("Id")
@@ -34,6 +62,15 @@ namespace Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Students");
+                });
+
+            modelBuilder.Entity("Domain.Note", b =>
+                {
+                    b.HasOne("Domain.Student", "Student")
+                        .WithMany("Notes")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -13,5 +13,7 @@ namespace Domain
 
         public string Phone { get; set; }
 
+        public ICollection<Note> Notes { get; set; }
+
     }
 }

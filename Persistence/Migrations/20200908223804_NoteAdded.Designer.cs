@@ -9,8 +9,8 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200803081713_NoteEntityAdded")]
-    partial class NoteEntityAdded
+    [Migration("20200908223804_NoteAdded")]
+    partial class NoteAdded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,7 +22,7 @@ namespace Persistence.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT").HasMaxLength(255);
 
                     b.Property<DateTime>("DateAdded")
                         .HasColumnType("TEXT");
@@ -33,11 +33,11 @@ namespace Persistence.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
-                    b.Property<byte>("ProgressRating")
+                    b.Property<int>("ProgressRating")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("StudentId")
-                        .HasColumnType("INTEGER");
+                    b.Property<Guid>("StudentId").HasMaxLength(255)
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -48,9 +48,9 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Student", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Address")
                         .HasColumnType("TEXT");
@@ -64,49 +64,12 @@ namespace Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Students");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Address = "11 Harold Road",
-                            Name = "Ehsan",
-                            Phone = "123456"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Address = "22 Hastings Road",
-                            Name = "Mahsa",
-                            Phone = "321654"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Address = "44 Denzil Avenue",
-                            Name = "Poyan ",
-                            Phone = "789987"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Address = "10 Tessa Court",
-                            Name = "Sam",
-                            Phone = "456654"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Address = "9 Cindy Court",
-                            Name = "Dash",
-                            Phone = "987123"
-                        });
                 });
 
             modelBuilder.Entity("Domain.Note", b =>
                 {
                     b.HasOne("Domain.Student", "Student")
-                        .WithMany()
+                        .WithMany("Notes")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

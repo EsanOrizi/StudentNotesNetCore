@@ -10,11 +10,9 @@ namespace Persistence
 
         }
 
-        //public DbSet<Student> Students { get; set; }
-
         public DbSet<Student> Students { get; set; }
 
-        //  public DbSet<Note> Notes { get; set; }
+        public DbSet<Note> Notes { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -27,6 +25,11 @@ namespace Persistence
             //     new Student { Name = "Sam", Address = "10 Tessa Court", Phone = "456654" },
             //     new Student { Name = "Dash", Address = "9 Cindy Court", Phone = "987123" }
             // );
+
+            builder.Entity<Student>()
+            .HasMany(s => s.Notes)
+            .WithOne(n => n.Student)
+            .IsRequired();
         }
 
 
