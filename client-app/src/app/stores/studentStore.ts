@@ -1,21 +1,34 @@
 import { observable, action, computed, configure, runInAction } from 'mobx';
 import { createContext, SyntheticEvent } from 'react';
 import { IStudent } from '../models/student';
+import { INote } from '../models/note';
 import agent from '../api/agent';
-//import 'mobx-react-lite/batchingOptOut';
 
 configure({ enforceActions: 'always' });
 
 class StudentStore {
   @observable studentRegistry = new Map();
+  @observable noteRegistry = new Map();
   @observable student: IStudent | null = null;
+  @observable note: INote | null = null;
   @observable loadingInitial = false;
   @observable submitting = false;
   @observable target = '';
 
+  testArray: any = [];
+
   @computed get studentArrayFromMap() {
     return Array.from(this.studentRegistry.values());
   }
+
+  @computed get noteArrayFromMap() {
+    return Array.from(this.noteRegistry.values());
+  }
+
+  @action filterNotes = (id: string) => {
+    var filteredNotes = this.noteArrayFromMap.filter((i) => i.studentId === id);
+    return filteredNotes;
+  };
 
   @action loadStudents = async () => {
     this.loadingInitial = true;
@@ -29,6 +42,24 @@ class StudentStore {
       });
     } catch (error) {
       runInAction('Load students error', () => {
+        this.loadingInitial = false;
+      });
+      console.log(error);
+    }
+  };
+
+  @action loadNotes = async () => {
+    this.loadingInitial = true;
+    try {
+      const notes = await agent.Notes.list();
+      runInAction('Loading Students', () => {
+        notes.forEach((note) => {
+          this.noteRegistry.set(note.id, note);
+        });
+        this.loadingInitial = false;
+      });
+    } catch (error) {
+      runInAction('Load notess error', () => {
         this.loadingInitial = false;
       });
       console.log(error);
@@ -56,8 +87,33 @@ class StudentStore {
     }
   };
 
+  @action loadNote = async (id: string) => {
+    let note = this.getNote(id);
+    if (note) {
+      this.note = note;
+    } else {
+      this.loadingInitial = true;
+      try {
+        note = await agent.Notes.details(id);
+        runInAction(() => {
+          this.note = note;
+          this.loadingInitial = false;
+        });
+      } catch (error) {
+        runInAction(() => {
+          this.loadingInitial = false;
+        });
+        console.log(error);
+      }
+    }
+  };
+
   getStudent = (id: string) => {
     return this.studentRegistry.get(id);
+  };
+
+  getNote = (id: string) => {
+    return this.noteRegistry.get(id);
   };
 
   @action createStudent = async (student: IStudent) => {
@@ -77,6 +133,23 @@ class StudentStore {
     }
   };
 
+  @action createNote = async (note: INote) => {
+    this.submitting = true;
+    try {
+      await agent.Notes.create(note);
+      runInAction(() => {
+        this.noteRegistry.set(note.id, note);
+        this.submitting = false;
+      });
+    } catch (error) {
+      runInAction(() => {
+        this.submitting = false;
+      });
+
+      console.log(error);
+    }
+  };
+
   @action editStudent = async (student: IStudent) => {
     this.submitting = true;
     try {
@@ -84,6 +157,23 @@ class StudentStore {
       runInAction(() => {
         this.studentRegistry.set(student.id, student);
         this.student = student;
+        this.submitting = false;
+      });
+    } catch (error) {
+      runInAction(() => {
+        this.submitting = false;
+      });
+      console.log(error);
+    }
+  };
+
+  @action editNote = async (note: INote) => {
+    this.submitting = true;
+    try {
+      await agent.Notes.update(note);
+      runInAction(() => {
+        this.noteRegistry.set(note.id, note);
+        this.note = note;
         this.submitting = false;
       });
     } catch (error) {
@@ -114,8 +204,32 @@ class StudentStore {
     }
   };
 
+  @action deleteNote = async (event: SyntheticEvent<HTMLButtonElement>, id: string) => {
+    this.submitting = true;
+    this.target = event.currentTarget.name;
+    try {
+      await agent.Notes.delete(id);
+      runInAction(() => {
+        this.noteRegistry.delete(id);
+        this.submitting = false;
+        this.target = '';
+      });
+    } catch (error) {
+      runInAction(() => {
+        this.submitting = false;
+        this.target = '';
+      });
+
+      console.log(error);
+    }
+  };
+
   @action clearStudent = () => {
     this.student = null;
+  };
+
+  @action clearNote = () => {
+    this.note = null;
   };
 }
 

@@ -1,17 +1,21 @@
 import React, { useContext, useEffect } from 'react';
 import { Grid } from 'semantic-ui-react';
-import StudentList from './StudentList';
+import NoteList from './NoteList';
 import { observer } from 'mobx-react-lite';
 import StudentStore from '../../../app/stores/studentStore';
 import LoadingComponent from '../../../app/layout/LoadingComponent';
-import NoteList from '../../notes/dashbaord/NoteList';
-import NoteDashboard from '../../notes/dashbaord/NoteDashboard';
+import { RouteComponentProps } from 'react-router-dom';
 
-const StudentDashboard: React.FC = () => {
+interface DetailParams {
+  studentId: string;
+}
+
+const NoteDashboard: React.FC<RouteComponentProps<DetailParams>> = ({ match, history }) => {
   const studentStore = useContext(StudentStore);
+  const studentId = match.params.studentId;
 
   useEffect(() => {
-    studentStore.loadStudents();
+    studentStore.loadNotes();
   }, [studentStore]);
 
   if (studentStore.loadingInitial) return <LoadingComponent content="Loading students..." />;
@@ -19,10 +23,10 @@ const StudentDashboard: React.FC = () => {
   return (
     <Grid>
       <Grid.Column width={10}>
-        <StudentList />
+        <NoteList studentId={studentId} />
       </Grid.Column>
     </Grid>
   );
 };
 
-export default observer(StudentDashboard);
+export default observer(NoteDashboard);
