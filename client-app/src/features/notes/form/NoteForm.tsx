@@ -2,22 +2,25 @@ import React, { useState, FormEvent, useContext, useEffect } from 'react';
 import { Segment, Form, Button } from 'semantic-ui-react';
 import { INote } from '../../../app/models/note';
 import { v4 as uuid } from 'uuid';
-import StudentStore from '../../../app/stores/studentStore';
 import { observer } from 'mobx-react-lite';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, useLocation } from 'react-router-dom';
+import MobxStore from '../../../app/stores/mobxStore';
 
 interface DetailsParams {
   id: string;
 }
 
 const NoteForm: React.FC<RouteComponentProps<DetailsParams>> = ({ match, history }) => {
-  const studentStore = useContext(StudentStore);
-  const { createNote, editNote, submitting, note: initializeFormState, loadNote, clearNote } = studentStore;
+  const mobxStore = useContext(MobxStore);
+  const { createNote, editNote, submitting, note: initializeFormState, loadNote, clearNote } = mobxStore;
+
+  const location = useLocation();
+  const studentId = location.pathname.split('/createNote/')[1];
 
   const [note, setNote] = useState<INote>({
     id: '',
     name: '',
-    progressRating: 0,
+    progressRating: '',
     extraNote: '',
     dateAdded: '',
     studentId: '',
@@ -37,6 +40,7 @@ const NoteForm: React.FC<RouteComponentProps<DetailsParams>> = ({ match, history
       let newNote = {
         ...note,
         id: uuid(),
+        studentId: studentId,
       };
       createNote(newNote).then(() => history.push(`/notes/${newNote.id}`));
     } else {
@@ -53,7 +57,6 @@ const NoteForm: React.FC<RouteComponentProps<DetailsParams>> = ({ match, history
     <Segment clearing>
       <Form onSubmit={handleSubmit}>
         <Form.Input onChange={handleInputChange} name="name" placeholder="Name" value={note.name} />
-        <Form.Input onChange={handleInputChange} name="progressRating" placeholder="ExtraNote" value={note.extraNote} />
         <Form.Input onChange={handleInputChange} name="extraNote" placeholder="ExtraNote" value={note.extraNote} />
         <Form.Input
           onChange={handleInputChange}
@@ -61,7 +64,12 @@ const NoteForm: React.FC<RouteComponentProps<DetailsParams>> = ({ match, history
           placeholder="ProgressRating"
           value={note.progressRating}
         />
-        <Form.Input onChange={handleInputChange} name="dateAdded" placeholder="DateAdded" value={note.dateAdded} />
+        <Form.Input
+          onChange={handleInputChange}
+          name="dateAdded"
+          placeholder="DateAdded"
+          value={note.dateAdded.split('T')[0]}
+        />
 
         <Button loading={submitting} floated="right" positive type="submit" content="submit" />
         <Button onClick={() => history.push('/notes')} floated="right" type="button" content="Cancel" />

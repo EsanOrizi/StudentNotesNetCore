@@ -7,7 +7,6 @@ import { Route, withRouter, RouteComponentProps } from 'react-router-dom';
 import HomePage from '../../features/home/HomePage';
 import StudentForm from '../../features/students/form/StudentForm';
 import StudentDetails from '../../features/students/details/StudentDetails';
-import NoteList from '../../features/notes/dashbaord/NoteList';
 import NoteDashboard from '../../features/notes/dashbaord/NoteDashboard';
 import NoteDetails from '../../features/notes/details/NoteDetails';
 import NoteForm from '../../features/notes/form/NoteForm';

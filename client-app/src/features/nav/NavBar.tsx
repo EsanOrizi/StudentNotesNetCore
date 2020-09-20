@@ -13,14 +13,8 @@ const NavBar: React.FC = () => {
             StudentNotes
           </Menu.Item>
           <Menu.Item name="Students" as={NavLink} to="/students" />
-          <Menu.Item name="Notes" as={NavLink} to="/notes" />
-
           <Menu.Item>
             <Button as={NavLink} to="/createStudent" positive content="New Student" />
-          </Menu.Item>
-
-          <Menu.Item>
-            <Button as={NavLink} to="/createNote" positive content="New Note" />
           </Menu.Item>
         </Container>
       </Menu>

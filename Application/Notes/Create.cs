@@ -16,7 +16,7 @@ namespace Application.Notes
 
             public String Name { get; set; }
 
-            public int ProgressRating { get; set; }
+            public String ProgressRating { get; set; }
 
             public String ExtraNote { get; set; }
 

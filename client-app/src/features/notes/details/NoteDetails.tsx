@@ -1,18 +1,17 @@
 import React, { useContext, useEffect } from 'react';
-import { Card, Button, Item } from 'semantic-ui-react';
-import StudentStore from '../../../app/stores/studentStore';
+import { Card, Button } from 'semantic-ui-react';
 import { observer } from 'mobx-react-lite';
 import { RouteComponentProps, Link } from 'react-router-dom';
 import LoadingComponent from '../../../app/layout/LoadingComponent';
-import NoteList from '../../notes/dashbaord/NoteList';
+import MobxStore from '../../../app/stores/mobxStore';
 
 interface DetailParams {
   id: string;
 }
 
 const NoteDetails: React.FC<RouteComponentProps<DetailParams>> = ({ match, history }) => {
-  const studentStore = useContext(StudentStore);
-  const { note, loadingInitial, loadNote } = studentStore;
+  const mobxStore = useContext(MobxStore);
+  const { note, loadingInitial, loadNote } = mobxStore;
 
   useEffect(() => {
     loadNote(match.params.id);
@@ -25,12 +24,12 @@ const NoteDetails: React.FC<RouteComponentProps<DetailParams>> = ({ match, histo
         <Card.Header>{note!.name}</Card.Header>
         <Card.Description>{note!.progressRating}</Card.Description>
         <Card.Description>{note!.extraNote}</Card.Description>
-        <Card.Description>{note!.dateAdded}</Card.Description>
+        <Card.Description>{note!.dateAdded.split('T')[0]}</Card.Description>
       </Card.Content>
       <Card.Content extra>
         <Button.Group widths={2}>
           <Button as={Link} to={`/manageNote/${note.id}`} basic color="blue" content="Edit" />
-          <Button onClick={() => history.push('/notes')} basic color="grey" content="Cancel" />
+          <Button onClick={() => history.push(`/studentNotes/${note.studentId}`)} basic color="grey" content="Back" />
         </Button.Group>
       </Card.Content>
     </Card>

@@ -13,7 +13,7 @@ namespace Persistence.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    ProgressRating = table.Column<int>(nullable: false),
+                    ProgressRating = table.Column<string>(nullable: false),
                     ExtraNote = table.Column<string>(nullable: true),
                     DateAdded = table.Column<DateTime>(nullable: false),
                     StudentId = table.Column<Guid>(nullable: false)

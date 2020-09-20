@@ -33,8 +33,8 @@ namespace Persistence.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("ProgressRating")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("ProgressRating")
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("StudentId").HasMaxLength(255)
                         .HasColumnType("TEXT");

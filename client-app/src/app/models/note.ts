@@ -1,7 +1,7 @@
 export interface INote {
   id: string;
   name: string;
-  progressRating: number;
+  progressRating: string;
   extraNote: string;
   dateAdded: string;
   studentId: string;

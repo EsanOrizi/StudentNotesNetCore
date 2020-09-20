@@ -2,23 +2,23 @@ import React, { useContext, useEffect } from 'react';
 import { Grid } from 'semantic-ui-react';
 import NoteList from './NoteList';
 import { observer } from 'mobx-react-lite';
-import StudentStore from '../../../app/stores/studentStore';
 import LoadingComponent from '../../../app/layout/LoadingComponent';
 import { RouteComponentProps } from 'react-router-dom';
+import MobxStore from '../../../app/stores/mobxStore';
 
 interface DetailParams {
   studentId: string;
 }
 
 const NoteDashboard: React.FC<RouteComponentProps<DetailParams>> = ({ match, history }) => {
-  const studentStore = useContext(StudentStore);
+  const mobxStore = useContext(MobxStore);
   const studentId = match.params.studentId;
 
   useEffect(() => {
-    studentStore.loadNotes();
-  }, [studentStore]);
+    mobxStore.loadNotes();
+  }, [mobxStore]);
 
-  if (studentStore.loadingInitial) return <LoadingComponent content="Loading students..." />;
+  if (mobxStore.loadingInitial) return <LoadingComponent content="Loading students..." />;
 
   return (
     <Grid>

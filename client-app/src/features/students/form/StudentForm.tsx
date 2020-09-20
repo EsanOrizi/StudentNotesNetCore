@@ -2,7 +2,7 @@ import React, { useState, FormEvent, useContext, useEffect } from 'react';
 import { Segment, Form, Button } from 'semantic-ui-react';
 import { IStudent } from '../../../app/models/student';
 import { v4 as uuid } from 'uuid';
-import StudentStore from '../../../app/stores/studentStore';
+import StudentStore from '../../../app/stores/mobxStore';
 import { observer } from 'mobx-react-lite';
 import { RouteComponentProps } from 'react-router-dom';
 

@@ -6,7 +6,7 @@ import agent from '../api/agent';
 
 configure({ enforceActions: 'always' });
 
-class StudentStore {
+class MobxStore {
   @observable studentRegistry = new Map();
   @observable noteRegistry = new Map();
   @observable student: IStudent | null = null;
@@ -233,4 +233,4 @@ class StudentStore {
   };
 }
 
-export default createContext(new StudentStore());
+export default createContext(new MobxStore());

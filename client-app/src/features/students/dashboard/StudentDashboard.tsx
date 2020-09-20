@@ -2,19 +2,17 @@ import React, { useContext, useEffect } from 'react';
 import { Grid } from 'semantic-ui-react';
 import StudentList from './StudentList';
 import { observer } from 'mobx-react-lite';
-import StudentStore from '../../../app/stores/studentStore';
 import LoadingComponent from '../../../app/layout/LoadingComponent';
-import NoteList from '../../notes/dashbaord/NoteList';
-import NoteDashboard from '../../notes/dashbaord/NoteDashboard';
+import MobxStore from '../../../app/stores/mobxStore';
 
 const StudentDashboard: React.FC = () => {
-  const studentStore = useContext(StudentStore);
+  const mobxStore = useContext(MobxStore);
 
   useEffect(() => {
-    studentStore.loadStudents();
-  }, [studentStore]);
+    mobxStore.loadStudents();
+  }, [mobxStore]);
 
-  if (studentStore.loadingInitial) return <LoadingComponent content="Loading students..." />;
+  if (mobxStore.loadingInitial) return <LoadingComponent content="Loading students..." />;
 
   return (
     <Grid>

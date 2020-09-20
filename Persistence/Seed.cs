@@ -31,21 +31,21 @@ namespace Persistence
                 var notes = new List<Note>
                 {
 
-                new Note { Name = "stop DAN", ProgressRating = 5, ExtraNote = "none" , DateAdded = DateTime.Now , StudentId = Guid.Parse("08d854b0-480c-42f3-1f1b-549a5f4a2888")},
-                new Note { Name = "Go DAN", ProgressRating = 7, ExtraNote = "ok for now" , DateAdded = DateTime.Now , StudentId = Guid.Parse("08d854b0-480c-42f3-1f1b-549a5f4a2888")},
-                new Note { Name = "left DAN", ProgressRating = 3, ExtraNote = "bad" , DateAdded = DateTime.Now,  StudentId = Guid.Parse("08d854b0-480c-42f3-1f1b-549a5f4a2888")},
+                new Note { Name = "Stopping on the left", ProgressRating = "5", ExtraNote = "Need to do more" , DateAdded = DateTime.Now , StudentId = Guid.Parse("08d854b0-480c-42f3-1f1b-549a5f4a2888")},
+                new Note { Name = "Stopping on the right", ProgressRating = "6", ExtraNote = "Ok for now" , DateAdded = DateTime.Now , StudentId = Guid.Parse("08d854b0-480c-42f3-1f1b-549a5f4a2888")},
+                new Note { Name = "Junction turning left", ProgressRating = "7", ExtraNote = "Good" , DateAdded = DateTime.Now,  StudentId = Guid.Parse("08d854b0-480c-42f3-1f1b-549a5f4a2888")},
 
-                new Note { Name = "stop AMY", ProgressRating = 5, ExtraNote = "none" , DateAdded = DateTime.Now , StudentId = Guid.Parse("1D0CB237-B440-460A-87B5-5FAE784E1EB9")},
-                new Note { Name = "Go AMY", ProgressRating = 7, ExtraNote = "ok for now" , DateAdded = DateTime.Now , StudentId = Guid.Parse("1D0CB237-B440-460A-87B5-5FAE784E1EB9")},
-                new Note { Name = "left AMY", ProgressRating = 3, ExtraNote = "bad" , DateAdded = DateTime.Now,  StudentId = Guid.Parse("1D0CB237-B440-460A-87B5-5FAE784E1EB9")},
+                new Note { Name = "Mini roundabouts", ProgressRating = "4", ExtraNote = "None" , DateAdded = DateTime.Now , StudentId = Guid.Parse("1D0CB237-B440-460A-87B5-5FAE784E1EB9")},
+                new Note { Name = "Large roundabouts", ProgressRating = "8", ExtraNote = "Good" , DateAdded = DateTime.Now , StudentId = Guid.Parse("1D0CB237-B440-460A-87B5-5FAE784E1EB9")},
+                new Note { Name = "Mirror checks", ProgressRating = "2", ExtraNote = "Bad, Mirrors to slow down not being checked" , DateAdded = DateTime.Now,  StudentId = Guid.Parse("1D0CB237-B440-460A-87B5-5FAE784E1EB9")},
 
-                new Note { Name = "stop PETER", ProgressRating = 5, ExtraNote = "none" , DateAdded = DateTime.Now , StudentId = Guid.Parse("D7A3CDF6-E59C-454B-B527-DC833ABFD13A")},
-                new Note { Name = "Go PETER", ProgressRating = 7, ExtraNote = "ok for now" , DateAdded = DateTime.Now , StudentId = Guid.Parse("D7A3CDF6-E59C-454B-B527-DC833ABFD13A")},
-                new Note { Name = "left PETER", ProgressRating = 3, ExtraNote = "bad" , DateAdded = DateTime.Now,  StudentId = Guid.Parse("D7A3CDF6-E59C-454B-B527-DC833ABFD13A")},
+                new Note { Name = "Dual carriageway", ProgressRating = "5", ExtraNote = "Do more next week" , DateAdded = DateTime.Now , StudentId = Guid.Parse("D7A3CDF6-E59C-454B-B527-DC833ABFD13A")},
+                new Note { Name = "Motorway", ProgressRating = "7", ExtraNote = "Ok for now" , DateAdded = DateTime.Now , StudentId = Guid.Parse("D7A3CDF6-E59C-454B-B527-DC833ABFD13A")},
+                new Note { Name = "Changing lanes", ProgressRating = "6", ExtraNote = "Need to do more" , DateAdded = DateTime.Now,  StudentId = Guid.Parse("D7A3CDF6-E59C-454B-B527-DC833ABFD13A")},
 
-                new Note { Name = "stop SAM", ProgressRating = 5, ExtraNote = "none" , DateAdded = DateTime.Now , StudentId = Guid.Parse("F2F9390C-9633-4E0F-8F03-946731523F28")},
-                new Note { Name = "Go SAM", ProgressRating = 7, ExtraNote = "ok for now" , DateAdded = DateTime.Now , StudentId = Guid.Parse("F2F9390C-9633-4E0F-8F03-946731523F28")},
-                new Note { Name = "left SAM", ProgressRating = 3, ExtraNote = "bad" , DateAdded = DateTime.Now,  StudentId = Guid.Parse("F2F9390C-9633-4E0F-8F03-946731523F28")},
+                new Note { Name = "Bay parking", ProgressRating = "5", ExtraNote = "Do more" , DateAdded = DateTime.Now , StudentId = Guid.Parse("F2F9390C-9633-4E0F-8F03-946731523F28")},
+                new Note { Name = "Parallel parking", ProgressRating = "9", ExtraNote = "Good, check blind spots" , DateAdded = DateTime.Now , StudentId = Guid.Parse("F2F9390C-9633-4E0F-8F03-946731523F28")},
+                new Note { Name = "Emergency stop", ProgressRating = "3", ExtraNote = "Bad, No need to check mirrors" , DateAdded = DateTime.Now,  StudentId = Guid.Parse("F2F9390C-9633-4E0F-8F03-946731523F28")},
 
 
 

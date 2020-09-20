@@ -1,20 +1,17 @@
 import React, { useContext, useEffect } from 'react';
 import { Card, Button } from 'semantic-ui-react';
-import StudentStore from '../../../app/stores/studentStore';
 import { observer } from 'mobx-react-lite';
 import { RouteComponentProps, Link } from 'react-router-dom';
 import LoadingComponent from '../../../app/layout/LoadingComponent';
-import NoteList from '../../notes/dashbaord/NoteList';
-import NoteDashboard from '../../notes/dashbaord/NoteDashboard';
-import NoteDetails from '../../notes/details/NoteDetails';
+import MobxStore from '../../../app/stores/mobxStore';
 
 interface DetailParams {
   id: string;
 }
 
 const StudentDetails: React.FC<RouteComponentProps<DetailParams>> = ({ match, history }) => {
-  const studentStore = useContext(StudentStore);
-  const { note, student, loadStudent, loadingInitial } = studentStore;
+  const mobxStore = useContext(MobxStore);
+  const { student, loadStudent, loadingInitial } = mobxStore;
 
   useEffect(() => {
     loadStudent(match.params.id);
