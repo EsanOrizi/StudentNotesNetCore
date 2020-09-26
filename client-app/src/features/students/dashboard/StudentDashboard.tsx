@@ -16,7 +16,7 @@ const StudentDashboard: React.FC = () => {
 
   return (
     <Grid>
-      <Grid.Column width={10}>
+      <Grid.Column>
         <StudentList />
       </Grid.Column>
     </Grid>

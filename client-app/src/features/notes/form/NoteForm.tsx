@@ -72,7 +72,7 @@ const NoteForm: React.FC<RouteComponentProps<DetailsParams>> = ({ match, history
         />
 
         <Button loading={submitting} floated="right" positive type="submit" content="submit" />
-        <Button onClick={() => history.push('/notes')} floated="right" type="button" content="Cancel" />
+        <Button onClick={() => {history.goBack()}} floated="right" type="button" content="Cancel" />
       </Form>
     </Segment>
   );
