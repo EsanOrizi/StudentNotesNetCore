@@ -1,6 +1,8 @@
 using System;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Errors;
 using FluentValidation;
 using MediatR;
 using Persistence;
@@ -44,7 +46,8 @@ namespace Application.Students
                 var student = await _context.Students.FindAsync(request.Id);
 
                 if (student == null)
-                    throw new Exception("Could not find student");
+                    throw new RestException(HttpStatusCode.NotFound, new { student = "Not Found" });
+
 
                 student.Name = request.Name ?? student.Name;
                 student.Address = request.Address ?? student.Address;

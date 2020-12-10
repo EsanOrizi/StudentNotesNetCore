@@ -83,7 +83,7 @@ class MobxStore {
           this.loadingInitial = false;
         });
         console.log(error);
-      }
+       }
     }
   };
 

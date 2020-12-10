@@ -14,12 +14,16 @@ const StudentDetails: React.FC<RouteComponentProps<DetailParams>> = ({ match, hi
   const { student, loadStudent, loadingInitial } = mobxStore;
 
   useEffect(() => {
-    loadStudent(match.params.id);
-  }, [loadStudent, match.params.id]);
+    loadStudent(match.params.id)
+  }, [loadStudent, match.params.id, history]);
 
-  if (loadingInitial || !student) return <LoadingComponent content="Loading student" />;
+  if (loadingInitial) return <LoadingComponent content="Loading student" />;
+
+if (!student)
+return <h2>Student Not Found</h2>
+
   return (
-    <>
+    <h2>
       <Card fluid>
         <Card.Content>
           <Card.Header>{student!.name}</Card.Header>
@@ -34,7 +38,7 @@ const StudentDetails: React.FC<RouteComponentProps<DetailParams>> = ({ match, hi
           </Button.Group>
         </Card.Content>
       </Card>
-    </>
+    </h2>
   );
 };
 
