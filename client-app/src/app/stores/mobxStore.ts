@@ -3,6 +3,7 @@ import { createContext, SyntheticEvent } from 'react';
 import { IStudent } from '../models/student';
 import { INote } from '../models/note';
 import agent from '../api/agent';
+import { history } from '../..';
 
 configure({ enforceActions: 'always' });
 
@@ -70,14 +71,18 @@ class MobxStore {
     let student = this.getStudent(id);
     if (student) {
       this.student = student;
+      return student;
     } else {
       this.loadingInitial = true;
       try {
         student = await agent.Students.details(id);
         runInAction(() => {
           this.student = student;
+          this.studentRegistry.set(student.id, student);
           this.loadingInitial = false;
         });
+        return student;
+
       } catch (error) {
         runInAction(() => {
           this.loadingInitial = false;
@@ -124,6 +129,7 @@ class MobxStore {
         this.studentRegistry.set(student.id, student);
         this.submitting = false;
       });
+      history.push(`/students/${student.id}`)
     } catch (error) {
       runInAction(() => {
         this.submitting = false;
@@ -159,6 +165,7 @@ class MobxStore {
         this.student = student;
         this.submitting = false;
       });
+     history.push(`/students/${student.id}`)
     } catch (error) {
       runInAction(() => {
         this.submitting = false;
