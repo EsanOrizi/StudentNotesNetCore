@@ -3,6 +3,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Persistence;
+using FluentValidation;
+
 
 namespace Application.Notes
 {
@@ -21,6 +23,16 @@ namespace Application.Notes
             public DateTime? DateAdded { get; set; }
 
             public Guid? StudentId { get; set; }
+        }
+
+        public class CommandValidator : AbstractValidator<Command>
+        {
+            public CommandValidator()
+            {
+                RuleFor(x => x.Name).NotEmpty();
+                RuleFor(x => x.ProgressRating).NotEmpty();
+                RuleFor(x => x.ExtraNote).NotEmpty();
+            }
         }
 
         public class Handler : IRequestHandler<Command>
