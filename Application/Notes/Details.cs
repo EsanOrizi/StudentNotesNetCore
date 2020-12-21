@@ -4,6 +4,10 @@ using System.Threading.Tasks;
 using Domain;
 using MediatR;
 using Persistence;
+using System.Net;
+using Application.Errors;
+
+
 
 namespace Application.Notes
 {
@@ -25,6 +29,10 @@ namespace Application.Notes
             public async Task<Note> Handle(Query request, CancellationToken cancellationToken)
             {
                 var note = await _context.Notes.FindAsync(request.Id);
+
+                if (note == null)
+                    throw new RestException(HttpStatusCode.NotFound, new { note = "Not Found" });
+
 
                 return note;
             }

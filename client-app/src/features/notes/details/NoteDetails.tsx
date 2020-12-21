@@ -17,7 +17,10 @@ const NoteDetails: React.FC<RouteComponentProps<DetailParams>> = ({ match, histo
     loadNote(match.params.id);
   }, [loadNote, match.params.id]);
 
-  if (loadingInitial || !note) return <LoadingComponent content="Loading note" />;
+  if (loadingInitial) return <LoadingComponent content="Loading note" />;
+
+  if(!note)
+  return <h2>Note not Found</h2>
   return (
     <Card fluid>
       <Card.Content>

@@ -4,6 +4,10 @@ using System.Threading.Tasks;
 using MediatR;
 using Persistence;
 using FluentValidation;
+using System.Net;
+using Application.Errors;
+
+
 
 
 namespace Application.Notes
@@ -49,7 +53,9 @@ namespace Application.Notes
                 var note = await _context.Notes.FindAsync(request.Id);
 
                 if (note == null)
-                    throw new Exception("Could not find note");
+                    throw new RestException(HttpStatusCode.NotFound, new { note = "Not Found" });
+
+
 
                 note.Name = request.Name ?? note.Name;
                 note.ProgressRating = request.ProgressRating ?? note.ProgressRating;
