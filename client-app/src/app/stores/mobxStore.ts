@@ -96,14 +96,17 @@ class MobxStore {
     let note = this.getNote(id);
     if (note) {
       this.note = note;
+      return note;
     } else {
       this.loadingInitial = true;
       try {
         note = await agent.Notes.details(id);
         runInAction(() => {
           this.note = note;
+          this.noteRegistry.set(note.id, note)
           this.loadingInitial = false;
         });
+        return note;
       } catch (error) {
         runInAction(() => {
           this.loadingInitial = false;
@@ -147,6 +150,8 @@ class MobxStore {
         this.noteRegistry.set(note.id, note);
         this.submitting = false;
       });
+      history.push(`/notes/${note.id}`)
+
     } catch (error) {
       runInAction(() => {
         this.submitting = false;
@@ -183,6 +188,8 @@ class MobxStore {
         this.note = note;
         this.submitting = false;
       });
+      history.push(`/notes/${note.id}`)
+
     } catch (error) {
       runInAction(() => {
         this.submitting = false;
