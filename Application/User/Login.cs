@@ -14,7 +14,7 @@ namespace Application.User
 {
     public class Login
     {
-        public class Query : IRequest<AppUser>
+        public class Query : IRequest<User>
         {
             public string Email { get; set; }
             public string Password { get; set; }
@@ -29,7 +29,7 @@ namespace Application.User
             }
         }
 
-        public class Handler : IRequestHandler<Query, AppUser>
+        public class Handler : IRequestHandler<Query, User>
         {
             private readonly UserManager<AppUser> _userManager;
             private readonly SignInManager<AppUser> _signInManager;
@@ -39,7 +39,7 @@ namespace Application.User
                 _userManager = userManager;
             }
 
-            public async Task<AppUser> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<User> Handle(Query request, CancellationToken cancellationToken)
             {
                 var user = await _userManager.FindByEmailAsync(request.Email);
 
@@ -52,7 +52,12 @@ namespace Application.User
                 if (result.Succeeded)
                 {
                     // TODO: generate token
-                    return user;
+                    return new User
+                    {
+                        DisplayName = user.DisplayName,
+                        Token = "will be a token",
+                        Username = user.UserName
+                    };
 
                 }
 
