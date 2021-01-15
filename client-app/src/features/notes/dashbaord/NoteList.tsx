@@ -3,14 +3,15 @@ import { Item, Button, Segment } from 'semantic-ui-react';
 import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
 import MobxStore from '../../../app/stores/mobxStore';
+import { RootStoreContext } from '../../../app/stores/rootStore';
 
 interface IProps {
   studentId: string;
 }
 
 const NoteList: React.FC<IProps> = ({ studentId }) => {
-  const mobxStore = useContext(MobxStore);
-  const { filterNotes, target, submitting, deleteNote } = mobxStore;
+  const rootStore = useContext(RootStoreContext);
+  const { filterNotes, target, submitting, deleteNote } = rootStore.mobxStore;
 
   return (
     <>

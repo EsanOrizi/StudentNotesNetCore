@@ -4,14 +4,15 @@ import { observer } from 'mobx-react-lite';
 import { RouteComponentProps, Link } from 'react-router-dom';
 import LoadingComponent from '../../../app/layout/LoadingComponent';
 import MobxStore from '../../../app/stores/mobxStore';
+import { RootStoreContext } from '../../../app/stores/rootStore';
 
 interface DetailParams {
   id: string;
 }
 
 const NoteDetails: React.FC<RouteComponentProps<DetailParams>> = ({ match, history }) => {
-  const mobxStore = useContext(MobxStore);
-  const { note, loadingInitial, loadNote } = mobxStore;
+  const rootStore = useContext(RootStoreContext);
+  const { note, loadingInitial, loadNote } = rootStore.mobxStore;
 
   useEffect(() => {
     loadNote(match.params.id);

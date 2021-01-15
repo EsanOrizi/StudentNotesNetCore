@@ -10,6 +10,7 @@ import { values } from 'mobx';
 import TextInput from '../../../app/common/form/TextInput';
 import TextAreaInput from '../../../app/common/form/TextAreaInput';
 import {combineValidators, isRequired} from 'revalidate';
+import { RootStoreContext } from '../../../app/stores/rootStore';
 
 const validate = combineValidators ({
   name: isRequired({message: 'name is required'}),
@@ -22,7 +23,7 @@ interface DetailsParams {
 }
 
 const StudentForm: React.FC<RouteComponentProps<DetailsParams>> = ({ match, history }) => {
-  const studentStore = useContext(StudentStore);
+  const rootStore = useContext(RootStoreContext);
   const {
     createStudent,
     editStudent,
@@ -30,7 +31,7 @@ const StudentForm: React.FC<RouteComponentProps<DetailsParams>> = ({ match, hist
     student: initializeFormState,
     loadStudent,
     clearStudent,
-  } = studentStore;
+  } = rootStore.mobxStore;
 
   const [student, setStudent] = useState(new StudentFormValues());
   const [loading, setLoading] = useState(false);

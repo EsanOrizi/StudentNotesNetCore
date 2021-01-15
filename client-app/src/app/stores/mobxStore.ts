@@ -1,13 +1,18 @@
-import { observable, action, computed, configure, runInAction } from 'mobx';
-import { createContext, SyntheticEvent } from 'react';
+import { observable, action, computed, runInAction } from 'mobx';
+import { SyntheticEvent } from 'react';
 import { IStudent } from '../models/student';
 import { INote } from '../models/note';
 import agent from '../api/agent';
 import { history } from '../..';
+import { RootStore } from './rootStore';
 
-configure({ enforceActions: 'always' });
 
-class MobxStore {
+export default class MobxStore {
+  rootStore: RootStore;
+  constructor(rootStore: RootStore) {
+    this.rootStore = rootStore;
+  }
+
   @observable studentRegistry = new Map();
   @observable noteRegistry = new Map();
   @observable student: IStudent | null = null;
@@ -17,6 +22,8 @@ class MobxStore {
   @observable target = '';
 
   testArray: any = [];
+
+  
 
   @computed get studentArrayFromMap() {
     return Array.from(this.studentRegistry.values());
@@ -247,4 +254,3 @@ class MobxStore {
   };
 }
 
-export default createContext(new MobxStore());

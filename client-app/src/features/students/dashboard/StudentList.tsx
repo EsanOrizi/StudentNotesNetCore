@@ -3,10 +3,11 @@ import { Item, Button, Segment } from 'semantic-ui-react';
 import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
 import MobxStore from '../../../app/stores/mobxStore';
+import { RootStoreContext } from '../../../app/stores/rootStore';
 
 const StudentList: React.FC = () => {
-  const mobxStore = useContext(MobxStore);
-  const { studentArrayFromMap, deleteStudent, submitting, target } = mobxStore;
+  const rootStore = useContext(RootStoreContext);
+  const { studentArrayFromMap, deleteStudent, submitting, target } = rootStore.mobxStore;
 
   return (
     <Segment clearing>

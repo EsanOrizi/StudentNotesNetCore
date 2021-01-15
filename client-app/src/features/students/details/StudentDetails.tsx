@@ -4,14 +4,15 @@ import { observer } from 'mobx-react-lite';
 import { RouteComponentProps, Link } from 'react-router-dom';
 import LoadingComponent from '../../../app/layout/LoadingComponent';
 import MobxStore from '../../../app/stores/mobxStore';
+import { RootStoreContext } from '../../../app/stores/rootStore';
 
 interface DetailParams {
   id: string;
 }
 
 const StudentDetails: React.FC<RouteComponentProps<DetailParams>> = ({ match, history }) => {
-  const mobxStore = useContext(MobxStore);
-  const { student, loadStudent, loadingInitial } = mobxStore;
+  const rootStore = useContext(RootStoreContext);
+  const { student, loadStudent, loadingInitial } = rootStore.mobxStore;
 
   useEffect(() => {
     loadStudent(match.params.id)

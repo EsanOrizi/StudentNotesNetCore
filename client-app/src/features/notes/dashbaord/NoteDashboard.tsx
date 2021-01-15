@@ -5,20 +5,22 @@ import { observer } from 'mobx-react-lite';
 import LoadingComponent from '../../../app/layout/LoadingComponent';
 import { RouteComponentProps } from 'react-router-dom';
 import MobxStore from '../../../app/stores/mobxStore';
+import { RootStoreContext } from '../../../app/stores/rootStore';
 
 interface DetailParams {
   studentId: string;
 }
 
 const NoteDashboard: React.FC<RouteComponentProps<DetailParams>> = ({ match, history }) => {
-  const mobxStore = useContext(MobxStore);
+  const rootStore = useContext(RootStoreContext);
+  const {loadNotes, loadingInitial} = rootStore.mobxStore;
   const studentId = match.params.studentId;
 
   useEffect(() => {
-    mobxStore.loadNotes();
-  }, [mobxStore]);
+    loadNotes();
+  }, [loadNotes]);
 
-  if (mobxStore.loadingInitial) return <LoadingComponent content="Loading students..." />;
+  if (loadingInitial) return <LoadingComponent content="Loading students..." />;
 
   return (
     <Grid>

@@ -10,6 +10,7 @@ import { values } from 'mobx';
 import TextInput from '../../../app/common/form/TextInput';
 import TextAreaInput from '../../../app/common/form/TextAreaInput';
 import {combineValidators, isRequired} from 'revalidate';
+import { RootStoreContext } from '../../../app/stores/rootStore';
 
 
 const validate = combineValidators ({
@@ -26,8 +27,8 @@ interface DetailsParams {
 }
 
 const NoteForm: React.FC<RouteComponentProps<DetailsParams>> = ({ match, history }) => {
-  const mobxStore = useContext(MobxStore);
-  const { createNote, editNote, submitting, note: initializeFormState, loadNote, clearNote } = mobxStore;
+  const rootStore = useContext(RootStoreContext);
+  const { createNote, editNote, submitting, note: initializeFormState, loadNote, clearNote } = rootStore.mobxStore;
 
   const location = useLocation();
   const studentId = location.pathname.split('/createNote/')[1];
