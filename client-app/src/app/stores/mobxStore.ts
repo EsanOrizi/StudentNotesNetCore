@@ -6,7 +6,6 @@ import agent from '../api/agent';
 import { history } from '../..';
 import { RootStore } from './rootStore';
 
-
 export default class MobxStore {
   rootStore: RootStore;
   constructor(rootStore: RootStore) {
@@ -22,8 +21,6 @@ export default class MobxStore {
   @observable target = '';
 
   testArray: any = [];
-
-  
 
   @computed get studentArrayFromMap() {
     return Array.from(this.studentRegistry.values());
@@ -89,13 +86,12 @@ export default class MobxStore {
           this.loadingInitial = false;
         });
         return student;
-
       } catch (error) {
         runInAction(() => {
           this.loadingInitial = false;
         });
         console.log(error);
-       }
+      }
     }
   };
 
@@ -110,7 +106,7 @@ export default class MobxStore {
         note = await agent.Notes.details(id);
         runInAction(() => {
           this.note = note;
-          this.noteRegistry.set(note.id, note)
+          this.noteRegistry.set(note.id, note);
           this.loadingInitial = false;
         });
         return note;
@@ -139,7 +135,7 @@ export default class MobxStore {
         this.studentRegistry.set(student.id, student);
         this.submitting = false;
       });
-      history.push(`/students/${student.id}`)
+      history.push(`/students/${student.id}`);
     } catch (error) {
       runInAction(() => {
         this.submitting = false;
@@ -157,8 +153,7 @@ export default class MobxStore {
         this.noteRegistry.set(note.id, note);
         this.submitting = false;
       });
-      history.push(`/notes/${note.id}`)
-
+      history.push(`/notes/${note.id}`);
     } catch (error) {
       runInAction(() => {
         this.submitting = false;
@@ -177,7 +172,7 @@ export default class MobxStore {
         this.student = student;
         this.submitting = false;
       });
-     history.push(`/students/${student.id}`)
+      history.push(`/students/${student.id}`);
     } catch (error) {
       runInAction(() => {
         this.submitting = false;
@@ -195,8 +190,7 @@ export default class MobxStore {
         this.note = note;
         this.submitting = false;
       });
-      history.push(`/notes/${note.id}`)
-
+      history.push(`/notes/${note.id}`);
     } catch (error) {
       runInAction(() => {
         this.submitting = false;
@@ -253,4 +247,3 @@ export default class MobxStore {
     this.note = null;
   };
 }
-

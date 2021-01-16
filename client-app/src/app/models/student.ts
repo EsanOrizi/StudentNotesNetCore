@@ -5,8 +5,6 @@ export interface IStudent {
   phone: string;
 }
 
-
-
 export class StudentFormValues implements IStudent {
   id: string = '';
   name: string = '';
@@ -16,5 +14,4 @@ export class StudentFormValues implements IStudent {
   constructor(init?: IStudent) {
     Object.assign(this, init);
   }
-  
 }

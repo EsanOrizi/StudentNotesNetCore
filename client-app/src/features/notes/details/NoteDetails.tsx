@@ -3,7 +3,6 @@ import { Card, Button } from 'semantic-ui-react';
 import { observer } from 'mobx-react-lite';
 import { RouteComponentProps, Link } from 'react-router-dom';
 import LoadingComponent from '../../../app/layout/LoadingComponent';
-import MobxStore from '../../../app/stores/mobxStore';
 import { RootStoreContext } from '../../../app/stores/rootStore';
 
 interface DetailParams {
@@ -18,10 +17,9 @@ const NoteDetails: React.FC<RouteComponentProps<DetailParams>> = ({ match, histo
     loadNote(match.params.id);
   }, [loadNote, match.params.id]);
 
-  if (loadingInitial) return <LoadingComponent content="Loading note" />;
+  if (loadingInitial) return <LoadingComponent content='Loading note' />;
 
-  if(!note)
-  return <h2>Note not Found</h2>
+  if (!note) return <h2>Note not Found</h2>;
   return (
     <Card fluid>
       <Card.Content>
@@ -32,8 +30,13 @@ const NoteDetails: React.FC<RouteComponentProps<DetailParams>> = ({ match, histo
       </Card.Content>
       <Card.Content extra>
         <Button.Group widths={2}>
-          <Button as={Link} to={`/manageNote/${note.id}`} basic color="blue" content="Edit" />
-          <Button onClick={() => history.push(`/studentNotes/${note.studentId}`)} basic color="grey" content="Back" />
+          <Button as={Link} to={`/manageNote/${note.id}`} basic color='blue' content='Edit' />
+          <Button
+            onClick={() => history.push(`/studentNotes/${note.studentId}`)}
+            basic
+            color='grey'
+            content='Back'
+          />
         </Button.Group>
       </Card.Content>
     </Card>

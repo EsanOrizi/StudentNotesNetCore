@@ -7,14 +7,13 @@ import { RootStoreContext } from '../../../app/stores/rootStore';
 
 const StudentDashboard: React.FC = () => {
   const rootStore = useContext(RootStoreContext);
-  const {loadStudents, loadingInitial} = rootStore.mobxStore;
+  const { loadStudents, loadingInitial } = rootStore.mobxStore;
 
-   
   useEffect(() => {
     loadStudents();
   }, [loadStudents]);
 
-  if (loadingInitial) return <LoadingComponent content="Loading students..." />;
+  if (loadingInitial) return <LoadingComponent content='Loading students...' />;
 
   return (
     <Grid>

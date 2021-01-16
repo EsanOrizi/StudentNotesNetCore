@@ -10,35 +10,38 @@ const HomePage = () => {
   const { isLoggedIn, user } = rootStore.userStore;
   const { openModal } = rootStore.modalStore;
   return (
-    <Segment inverted textAlign="center" vertical className="masthead">
+    <Segment inverted textAlign='center' vertical className='masthead'>
       <Container text>
-        <Header as="h1" inverted>
-          <Image size="massive" src="/assets/logo.png" alt="logo" style={{ marginBottom: 12 }} />
+        <Header as='h1' inverted>
+          <Image
+            size='massive'
+            src='/assets/logo.png'
+            alt='logo'
+            style={{ marginBottom: 12 }}
+          />
           Student Notes
         </Header>
         {isLoggedIn && user ? (
           <Fragment>
-            <Header as="h2" inverted content={`Welcome back ${user.displayName}`} />
-            <Button as={Link} to="/students" size="huge" inverted>
+            <Header as='h2' inverted content={`Welcome back ${user.displayName}`} />
+            <Button as={Link} to='/students' size='huge' inverted>
               Go to students
-             </Button>
+            </Button>
           </Fragment>
         ) : (
-            <Fragment>
-              <Header as="h2" inverted content="Welcome to Student Notes" />
-              <Button onClick={() => openModal(<LoginFrom />)} size="huge" inverted>
-                Login
-              </Button>
-              <Button onClick={() => openModal(<RegisterFrom />)} size="huge" inverted>
-                Register
-              </Button>
-            </Fragment>
-          )}
-
+          <Fragment>
+            <Header as='h2' inverted content='Welcome to Student Notes' />
+            <Button onClick={() => openModal(<LoginFrom />)} size='huge' inverted>
+              Login
+            </Button>
+            <Button onClick={() => openModal(<RegisterFrom />)} size='huge' inverted>
+              Register
+            </Button>
+          </Fragment>
+        )}
       </Container>
     </Segment>
   );
-
 };
 
 export default HomePage;

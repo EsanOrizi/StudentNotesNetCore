@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { Item, Button, Segment } from 'semantic-ui-react';
 import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
-import MobxStore from '../../../app/stores/mobxStore';
 import { RootStoreContext } from '../../../app/stores/rootStore';
 
 interface IProps {
@@ -16,14 +15,20 @@ const NoteList: React.FC<IProps> = ({ studentId }) => {
   return (
     <>
       <Segment clearing>
-        <Button as={Link} to={`/createNote/${studentId}`} floated="right" content="New Note" color="blue" />
+        <Button
+          as={Link}
+          to={`/createNote/${studentId}`}
+          floated='right'
+          content='New Note'
+          color='blue'
+        />
       </Segment>
       <Segment clearing>
         <Item.Group divided>
           {filterNotes(studentId).map((note) => (
             <Item key={note.id}>
               <Item.Content>
-                <Item.Header as="a">{note.name}</Item.Header>
+                <Item.Header as='a'>{note.name}</Item.Header>
                 <Item.Meta></Item.Meta>
                 <Item.Description>
                   <div>{note.progressRating}</div>
@@ -31,14 +36,20 @@ const NoteList: React.FC<IProps> = ({ studentId }) => {
                   <div>{note.dateAdded.split('T')[0]}</div>
                 </Item.Description>
                 <Item.Extra>
-                  <Button as={Link} to={`/notes/${note.id}`} floated="right" content="View" color="blue" />
+                  <Button
+                    as={Link}
+                    to={`/notes/${note.id}`}
+                    floated='right'
+                    content='View'
+                    color='blue'
+                  />
                   <Button
                     name={note.id}
                     loading={target === note.id && submitting}
                     onClick={(e) => deleteNote(e, note.id)}
-                    floated="right"
-                    content="Delete"
-                    color="red"
+                    floated='right'
+                    content='Delete'
+                    color='red'
                   />
                 </Item.Extra>
               </Item.Content>

@@ -7,8 +7,6 @@ export interface INote {
   studentId: string;
 }
 
-
-
 export class NoteFormValues implements INote {
   id: string = '';
   name: string = '';

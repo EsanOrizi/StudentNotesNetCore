@@ -6,31 +6,36 @@ import { RootStoreContext } from '../../app/stores/rootStore';
 
 const NavBar: React.FC = () => {
   const rootStore = useContext(RootStoreContext);
-  const { isLoggedIn, user, logout } = rootStore.userStore;
+  const { user, logout } = rootStore.userStore;
 
   return (
     <div>
-      <Menu fixed="top" inverted>
+      <Menu fixed='top' inverted>
         <Container>
-          <Menu.Item header as={NavLink} exact to="/">
-            <img src="/assets/logo.png" alt="logo" style={{ marginRight: '10px' }} />
+          <Menu.Item header as={NavLink} exact to='/'>
+            <img src='/assets/logo.png' alt='logo' style={{ marginRight: '10px' }} />
             StudentNotes
           </Menu.Item>
-          <Menu.Item name="Students" as={NavLink} to="/students" />
+          <Menu.Item name='Students' as={NavLink} to='/students' />
           <Menu.Item>
-            <Button as={NavLink} to="/createStudent" positive content="New Student" />
+            <Button as={NavLink} to='/createStudent' positive content='New Student' />
           </Menu.Item>
-          {user &&
+          {user && (
             <Menu.Item position='right'>
               <Image avatar spaced='right' src={'/assets/user.png'} />
               <Dropdown pointing='top left' text={user.displayName}>
                 <Dropdown.Menu>
-                  <Dropdown.Item as={Link} to={`/profile/username`} text='My profile' icon='user' />
+                  <Dropdown.Item
+                    as={Link}
+                    to={`/profile/username`}
+                    text='My profile'
+                    icon='user'
+                  />
                   <Dropdown.Item onClick={logout} text='Logout' icon='power' />
                 </Dropdown.Menu>
               </Dropdown>
             </Menu.Item>
-          }
+          )}
         </Container>
       </Menu>
     </div>
