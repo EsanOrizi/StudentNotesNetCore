@@ -25,6 +25,9 @@ namespace Persistence
             .HasMany(s => s.Notes)
             .WithOne(n => n.Student)
             .IsRequired();
+
+
+
         }
 
 

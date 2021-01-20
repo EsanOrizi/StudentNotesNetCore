@@ -1,9 +1,11 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Interfaces;
 using Domain;
 using FluentValidation;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
 
 namespace Application.Students
@@ -35,19 +37,26 @@ namespace Application.Students
         public class Handler : IRequestHandler<Command>
         {
             private readonly DataContext _context;
-            public Handler(DataContext context)
+            private readonly IUserAccessor _userAccessor;
+            public Handler(DataContext context, IUserAccessor userAccessor)
             {
+                _userAccessor = userAccessor;
                 _context = context;
             }
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
+
+                var user = await _context.Users.SingleOrDefaultAsync(x =>
+                x.UserName == _userAccessor.GetCurrentUsername());
+
                 var student = new Student
                 {
                     Id = request.Id,
                     Name = request.Name,
                     Address = request.Address,
-                    Phone = request.Phone
+                    Phone = request.Phone,
+                    AppUserId = new Guid(user.Id)
                 };
 
                 _context.Students.Add(student);

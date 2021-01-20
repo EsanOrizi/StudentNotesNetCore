@@ -15,5 +15,9 @@ namespace Domain
 
         public ICollection<Note> Notes { get; set; }
 
+        public AppUser AppUser { get; set; }
+
+        public Guid AppUserId { get; set; }
+
     }
 }
