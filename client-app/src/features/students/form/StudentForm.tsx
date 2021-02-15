@@ -7,13 +7,15 @@ import { RouteComponentProps } from 'react-router-dom';
 import { Form as FinalForm, Field } from 'react-final-form';
 import TextInput from '../../../app/common/form/TextInput';
 import TextAreaInput from '../../../app/common/form/TextAreaInput';
-import { combineValidators, isRequired } from 'revalidate';
+import { combineValidators, composeValidators, isNumeric, isRequired } from 'revalidate';
 import { RootStoreContext } from '../../../app/stores/rootStore';
 
 const validate = combineValidators({
   name: isRequired({ message: 'name is required' }),
   address: isRequired({ message: 'address is required' }),
-  phone: isRequired({ message: 'phone is required' }),
+  phone: composeValidators(
+  isRequired({ message: 'Can not be Empty' }),
+  isNumeric({message:'Must be a number'}))()
 });
 
 interface DetailsParams {
