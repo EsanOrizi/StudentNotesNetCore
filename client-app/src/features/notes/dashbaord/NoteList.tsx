@@ -10,7 +10,7 @@ interface IProps {
 
 const NoteList: React.FC<IProps> = ({ studentId }) => {
   const rootStore = useContext(RootStoreContext);
-  const { filterNotes, target, submitting, deleteNote } = rootStore.mobxStore;
+  const { filterNotes, submitting, deleteNote } = rootStore.mobxStore;
   const [open, setOpen] = useState(false);
 
   return (
