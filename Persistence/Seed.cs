@@ -18,9 +18,10 @@ namespace Persistence
                 {
                     new AppUser
                     {
-                        DisplayName = "Bob",
-                        UserName = "bob",
-                        Email = "bob@test.com"
+                        Id = "8b45979a-8e64-4874-a09e-48766a625cbb",
+                        DisplayName = "Test",
+                        UserName = "test",
+                        Email = "test@test.com"
                     },
                       new AppUser
                     {
@@ -47,10 +48,10 @@ namespace Persistence
                 var students = new List<Student>
                 {
 
-                new Student { Id = Guid.Parse("08d854b0-480c-42f3-1f1b-549a5f4a2888"), Name = "Dan", Address = "11 Harold Road", Phone = "123456" },
-                new Student { Id = Guid.Parse("1D0CB237-B440-460A-87B5-5FAE784E1EB9"),Name = "Amy", Address = "22 Hastings Road", Phone = "321654", },
-                new Student { Id = Guid.Parse("D7A3CDF6-E59C-454B-B527-DC833ABFD13A"),Name = "Peter", Address = "44 Denzil Avenue", Phone = "789987", },
-                new Student { Id = Guid.Parse("F2F9390C-9633-4E0F-8F03-946731523F28"),Name = "Sam", Address = "10 Tessa Court", Phone = "456654", },
+                new Student { Id = Guid.Parse("08d854b0-480c-42f3-1f1b-549a5f4a2888"), Name = "Dan", Address = "11 Harold Road", Phone = "123456" , AppUserId = Guid.Parse("8b45979a-8e64-4874-a09e-48766a625cbb")}, 
+                new Student { Id = Guid.Parse("1D0CB237-B440-460A-87B5-5FAE784E1EB9"),Name = "Amy", Address = "22 Hastings Road", Phone = "321654", AppUserId = Guid.Parse("8b45979a-8e64-4874-a09e-48766a625cbb")},
+                new Student { Id = Guid.Parse("D7A3CDF6-E59C-454B-B527-DC833ABFD13A"),Name = "Peter", Address = "44 Denzil Avenue", Phone = "789987", AppUserId = Guid.Parse("8b45979a-8e64-4874-a09e-48766a625cbb")},
+                new Student { Id = Guid.Parse("F2F9390C-9633-4E0F-8F03-946731523F28"),Name = "Sam", Address = "10 Tessa Court", Phone = "456654", AppUserId = Guid.Parse("8b45979a-8e64-4874-a09e-48766a625cbb")},
                 new Student { Name = "Dash", Address = "9 Cindy Court", Phone = "987123", },
 
                 };

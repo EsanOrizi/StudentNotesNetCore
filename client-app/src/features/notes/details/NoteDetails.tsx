@@ -68,7 +68,7 @@ const NoteDetails: React.FC<RouteComponentProps<DetailParams>> = ({
               <Button
                 color="red"
                 loading={submitting}
-                onClick={(e) => deleteNote(e, note.id)}
+                onClick={(e) => deleteNote(e, note.id).finally(() => history.push(`/studentNotes/${note.studentId}`))}
               >
                 <Icon name="remove" /> YES DELETE
               </Button>

@@ -18,11 +18,6 @@ const StudentList: React.FC = () => {
           <Item key={student.id}>
             <Item.Content>
               <Item.Header as="a">{student.name}</Item.Header>
-              <Item.Meta></Item.Meta>
-              <Item.Description>
-                <div>{student.address}</div>
-                <div>{student.phone}</div>
-              </Item.Description>
               <Item.Extra>
                 <Button
                   as={Link}
