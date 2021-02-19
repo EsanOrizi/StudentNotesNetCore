@@ -146,9 +146,9 @@ const NoteForm: React.FC<RouteComponentProps<DetailsParams>> = ({
             />
             <Button
               onClick={
-                note.id
+                 note.id
                   ? () => history.push(`/notes/${note.id}`)
-                  : () => history.push("/notes")
+                  : () => history.push(`/studentNotes/${studentId}`)
               }
               disabled={loading}
               floated="right"

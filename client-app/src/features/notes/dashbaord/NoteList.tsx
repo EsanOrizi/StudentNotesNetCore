@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { Item, Button, Segment } from "semantic-ui-react";
 import { observer } from "mobx-react-lite";
-import { Link, match } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 
 interface IProps {
@@ -12,16 +12,15 @@ interface IProps {
 
 const NoteList: React.FC<IProps> = ({ studentId }) => {
   const rootStore = useContext(RootStoreContext);
-  const { filterNotes, student, loadStudent } = rootStore.mobxStore;
+  const { filterNotes, loadStudent } = rootStore.mobxStore;
 
   useEffect(() => {
     loadStudent(studentId);
-  }, [loadStudent]);
+  }, [loadStudent, studentId]);
 
   return (
     <>
       <Segment clearing >
-        <h2>{student!.name}</h2>
         <Button
           as={Link}
           to={`/createNote/${studentId}`}
