@@ -1,23 +1,33 @@
-import React, { useContext, useEffect } from 'react';
-import { Card, Button } from 'semantic-ui-react';
-import { observer } from 'mobx-react-lite';
-import { RouteComponentProps, Link } from 'react-router-dom';
-import LoadingComponent from '../../../app/layout/LoadingComponent';
-import { RootStoreContext } from '../../../app/stores/rootStore';
+import React, { useContext, useEffect, useState } from "react";
+import { Card, Button, Modal, Header, Icon } from "semantic-ui-react";
+import { observer } from "mobx-react-lite";
+import { RouteComponentProps, Link } from "react-router-dom";
+import LoadingComponent from "../../../app/layout/LoadingComponent";
+import { RootStoreContext } from "../../../app/stores/rootStore";
 
 interface DetailParams {
   id: string;
 }
 
-const NoteDetails: React.FC<RouteComponentProps<DetailParams>> = ({ match, history }) => {
+const NoteDetails: React.FC<RouteComponentProps<DetailParams>> = ({
+  match,
+  history,
+}) => {
   const rootStore = useContext(RootStoreContext);
-  const { note, loadingInitial, loadNote } = rootStore.mobxStore;
+  const {
+    note,
+    loadingInitial,
+    loadNote,
+    submitting,
+    deleteNote,
+  } = rootStore.mobxStore;
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     loadNote(match.params.id);
   }, [loadNote, match.params.id]);
 
-  if (loadingInitial) return <LoadingComponent content='Loading note' />;
+  if (loadingInitial) return <LoadingComponent content="Loading note" />;
 
   if (!note) return <h2>Note not Found</h2>;
   return (
@@ -26,17 +36,47 @@ const NoteDetails: React.FC<RouteComponentProps<DetailParams>> = ({ match, histo
         <Card.Header>{note!.name}</Card.Header>
         <Card.Description>{note!.progressRating}</Card.Description>
         <Card.Description>{note!.extraNote}</Card.Description>
-        <Card.Description>{note!.dateAdded.split('T')[0]}</Card.Description>
+        <Card.Description>{note!.dateAdded.split("T")[0]}</Card.Description>
       </Card.Content>
       <Card.Content extra>
-        <Button.Group widths={2}>
-          <Button as={Link} to={`/manageNote/${note.id}`} basic color='blue' content='Edit' />
+        <Button.Group widths={3}>
+          <Button
+            as={Link}
+            to={`/manageNote/${note.id}`}
+            basic
+            color="blue"
+            content="Edit"
+          />
           <Button
             onClick={() => history.push(`/studentNotes/${note.studentId}`)}
             basic
-            color='grey'
-            content='Back'
+            color="grey"
+            content="Back"
           />
+          <Modal
+            open={open}
+            size="mini"
+            trigger={<Button floated="right" content="Delete" color="red" />}
+            onClose={() => setOpen(false)}
+            onOpen={() => setOpen(true)}
+          >
+            <Header content="Delete Note?" />
+            <Modal.Content>
+              <p>Are you sure you like to delete this note?</p>
+            </Modal.Content>
+            <Modal.Actions>
+              <Button
+                color="red"
+                loading={submitting}
+                onClick={(e) => deleteNote(e, note.id)}
+              >
+                <Icon name="remove" /> YES DELETE
+              </Button>
+              <Button color="green" onClick={() => setOpen(false)}>
+                <Icon name="checkmark" /> No
+              </Button>
+            </Modal.Actions>
+          </Modal>
         </Button.Group>
       </Card.Content>
     </Card>

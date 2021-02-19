@@ -40,26 +40,20 @@ const StudentDetails: React.FC<RouteComponentProps<DetailParams>> = ({
           <Card.Description>{student!.phone}</Card.Description>
         </Card.Content>
         <Card.Content extra>
-          <Button.Group widths={4}>
+          <Button.Group widths={3}>
             <Button
               as={Link}
               to={`/manageStudent/${student.id}`}
               basic
               color="blue"
-              content="Edit"
-            />
-            <Button
-              onClick={() => history.push("/students")}
-              basic
-              color="grey"
-              content="Cancel"
+              content="Edit Student Details"
             />
             <Button
               as={Link}
               to={`/studentNotes/${student.id}`}
               basic
               color="blue"
-              content="Notes"
+              content="Student's Notes"
             />
             <Modal
               open={open}

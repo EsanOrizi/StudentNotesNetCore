@@ -1,25 +1,31 @@
-import React, { useContext, useState } from "react";
-import { Item, Button, Segment, Modal, Header, Icon } from "semantic-ui-react";
+import React, { useContext, useEffect } from "react";
+import { Item, Button, Segment } from "semantic-ui-react";
 import { observer } from "mobx-react-lite";
-import { Link } from "react-router-dom";
+import { Link, match } from "react-router-dom";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 
 interface IProps {
   studentId: string;
 }
 
+
+
 const NoteList: React.FC<IProps> = ({ studentId }) => {
   const rootStore = useContext(RootStoreContext);
-  const { filterNotes, submitting, deleteNote } = rootStore.mobxStore;
-  const [open, setOpen] = useState(false);
+  const { filterNotes, student, loadStudent } = rootStore.mobxStore;
+
+  useEffect(() => {
+    loadStudent(studentId);
+  }, [loadStudent]);
 
   return (
     <>
-      <Segment clearing>
+      <Segment clearing >
+        <h2>{student!.name}</h2>
         <Button
           as={Link}
           to={`/createNote/${studentId}`}
-          floated="right"
+          floated="left"
           content="New Note"
           color="blue"
         />
@@ -44,32 +50,6 @@ const NoteList: React.FC<IProps> = ({ studentId }) => {
                     content="View"
                     color="blue"
                   />
-                  <Modal
-                    open={open}
-                    size="mini"
-                    trigger={
-                      <Button floated="right" content="Delete" color="red" />
-                    }
-                    onClose={() => setOpen(false)}
-                    onOpen={() => setOpen(true)}
-                  >
-                    <Header content="Delete Note?" />
-                    <Modal.Content>
-                      <p>Are you sure you like to delete this note?</p>
-                    </Modal.Content>
-                    <Modal.Actions>
-                      <Button
-                        color="red"
-                        loading={submitting}
-                        onClick={(e) => deleteNote(e, note.id)}
-                      >
-                        <Icon name="remove" /> YES DELETE
-                      </Button>
-                      <Button color="green" onClick={() => setOpen(false)}>
-                        <Icon name="checkmark" /> No
-                      </Button>
-                    </Modal.Actions>
-                  </Modal>
                 </Item.Extra>
               </Item.Content>
             </Item>
