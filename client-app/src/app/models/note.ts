@@ -12,7 +12,7 @@ export class NoteFormValues implements INote {
   name: string = '';
   progressRating: string = '';
   extraNote: string = '';
-  dateAdded: Date | null = null;
+  dateAdded: Date | null = new Date();
   studentId: string = '';
 
   constructor(init?: INote) {
