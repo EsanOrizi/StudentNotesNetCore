@@ -3,6 +3,7 @@ import { Item, Button, Segment } from "semantic-ui-react";
 import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
 import { RootStoreContext } from "../../../app/stores/rootStore";
+import {format} from 'date-fns';
 
 interface IProps {
   studentId: string;
@@ -39,7 +40,7 @@ const NoteList: React.FC<IProps> = ({ studentId }) => {
                 <Item.Description>
                   <div>{note.progressRating}</div>
                   <div>{note.extraNote}</div>
-                  <div>{note!.dateAdded?.toISOString().split("T")[0]}</div>
+                  <div>{format (note.dateAdded , 'dd/MM/YYY')}</div>
                 </Item.Description>
                 <Item.Extra>
                   <Button

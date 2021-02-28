@@ -4,6 +4,8 @@ import { observer } from "mobx-react-lite";
 import { RouteComponentProps, Link } from "react-router-dom";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 import { RootStoreContext } from "../../../app/stores/rootStore";
+import {format} from 'date-fns';
+
 
 interface DetailParams {
   id: string;
@@ -36,7 +38,7 @@ const NoteDetails: React.FC<RouteComponentProps<DetailParams>> = ({
         <Card.Header>{note!.name}</Card.Header>
         <Card.Description>{note!.progressRating}</Card.Description>
         <Card.Description>{note!.extraNote}</Card.Description>
-        <Card.Description>{note!.dateAdded?.toISOString().split("T")[0]}</Card.Description>
+        <Card.Description>{format (note.dateAdded! , 'dd/MM/YYY')}</Card.Description>
       </Card.Content>
       <Card.Content extra>
         <Button.Group widths={3}>

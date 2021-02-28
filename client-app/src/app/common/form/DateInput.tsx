@@ -12,6 +12,7 @@ const DateInput: React.FC<IProps> = ({
     placeholder,
     date = false,
     time = false,
+    format,
     meta: { touched, error },
     ...rest
   }) => {
@@ -23,6 +24,7 @@ const DateInput: React.FC<IProps> = ({
             onChange={input.onChange}
             date={date}
             time={time}
+            format={'dd/MM/YYY'}
             {...rest}
             />
             
