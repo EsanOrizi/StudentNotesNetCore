@@ -59,6 +59,7 @@ export default class MobxStore {
       const notes = await agent.Notes.list();
       runInAction('Loading Students', () => {
         notes.forEach((note) => {
+          note.dateAdded = new Date(note.dateAdded!);
           this.noteRegistry.set(note.id, note);
         });
         this.loadingInitial = false;
@@ -105,6 +106,7 @@ export default class MobxStore {
       try {
         note = await agent.Notes.details(id);
         runInAction(() => {
+          note.dateAdded = new Date(note.dateAdded!);
           this.note = note;
           this.noteRegistry.set(note.id, note);
           this.loadingInitial = false;

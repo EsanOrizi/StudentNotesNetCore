@@ -3,7 +3,7 @@ export interface INote {
   name: string;
   progressRating: string;
   extraNote: string;
-  dateAdded: string;
+  dateAdded: Date | null;
   studentId: string;
 }
 
@@ -12,7 +12,7 @@ export class NoteFormValues implements INote {
   name: string = '';
   progressRating: string = '';
   extraNote: string = '';
-  dateAdded: string = '';
+  dateAdded: Date | null = null;
   studentId: string = '';
 
   constructor(init?: INote) {

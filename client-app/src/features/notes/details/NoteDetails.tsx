@@ -36,7 +36,7 @@ const NoteDetails: React.FC<RouteComponentProps<DetailParams>> = ({
         <Card.Header>{note!.name}</Card.Header>
         <Card.Description>{note!.progressRating}</Card.Description>
         <Card.Description>{note!.extraNote}</Card.Description>
-        <Card.Description>{note!.dateAdded.split("T")[0]}</Card.Description>
+        <Card.Description>{note!.dateAdded?.toISOString().split("T")[0]}</Card.Description>
       </Card.Content>
       <Card.Content extra>
         <Button.Group widths={3}>

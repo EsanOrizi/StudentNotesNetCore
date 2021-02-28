@@ -6,6 +6,7 @@ import { observer } from "mobx-react-lite";
 import { RouteComponentProps, useLocation } from "react-router-dom";
 import { Form as FinalForm, Field } from "react-final-form";
 import TextInput from "../../../app/common/form/TextInput";
+import DateInput from "../../../app/common/form/DateInput";
 import TextAreaInput from "../../../app/common/form/TextAreaInput";
 import {
   combineValidators,
@@ -133,8 +134,9 @@ const NoteForm: React.FC<RouteComponentProps<DetailsParams>> = ({
             <Field
               name="dateAdded"
               placeholder="dateAdded"
-              value={note.dateAdded}
-              component={TextInput}
+              value={note.dateAdded!}
+              component={DateInput}
+              date={true}
             />
             <Button
               loading={submitting}
