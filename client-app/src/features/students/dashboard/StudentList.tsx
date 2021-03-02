@@ -6,10 +6,7 @@ import { RootStoreContext } from "../../../app/stores/rootStore";
 
 const StudentList: React.FC = () => {
   const rootStore = useContext(RootStoreContext);
-  const {
-    studentArrayFromMap,
-  } = rootStore.mobxStore;
-
+  const { studentArrayFromMap } = rootStore.mobxStore;
 
   return (
     <Segment clearing>
@@ -25,6 +22,13 @@ const StudentList: React.FC = () => {
                   floated="right"
                   content="View"
                   color="blue"
+                />
+                <Button
+                  as={Link}
+                  to={`/studentNotes/${student.id}`}
+                  basic
+                  color="blue"
+                  content="Student's Notes"
                 />
               </Item.Extra>
             </Item.Content>

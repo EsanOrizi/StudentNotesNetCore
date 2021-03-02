@@ -13,15 +13,17 @@ interface IProps {
 
 const NoteList: React.FC<IProps> = ({ studentId }) => {
   const rootStore = useContext(RootStoreContext);
-  const { filterNotes, loadStudent } = rootStore.mobxStore;
+  const { filterNotes, getStudent } = rootStore.mobxStore;
+  
+  var student = getStudent(studentId);
 
-  useEffect(() => {
-    loadStudent(studentId);
-  }, [loadStudent, studentId]);
+ // useEffect(() => {
+ // }, [getStudent, studentId]);
 
   return (
     <>
       <Segment clearing >
+      <Item.Header as="a">{student.name + `'s notes`}</Item.Header>
         <Button
           as={Link}
           to={`/createNote/${studentId}`}
