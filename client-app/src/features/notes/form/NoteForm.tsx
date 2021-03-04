@@ -119,17 +119,17 @@ const NoteForm: React.FC<RouteComponentProps<DetailsParams>> = ({
               component={TextInput}
             />
             <Field
+              name="progressRating"
+              placeholder="progressRating"
+              value={note.progressRating}
+              component={TextInput}
+            />
+              <Field
               name="extraNote"
               placeholder="extraNote"
               value={note.extraNote}
               component={TextAreaInput}
               rows={3}
-            />
-            <Field
-              name="progressRating"
-              placeholder="progressRating"
-              value={note.progressRating}
-              component={TextInput}
             />
             <Field
               name="dateAdded"

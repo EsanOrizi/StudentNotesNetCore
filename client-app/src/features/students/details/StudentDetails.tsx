@@ -32,69 +32,74 @@ const StudentDetails: React.FC<RouteComponentProps<DetailParams>> = ({
   if (!student) return <h2>Student Not Found</h2>;
 
   return (
-    <h2>
-      <Card fluid>
-        <Card.Content>
-          <Card.Header>{student!.name}</Card.Header>
-          <Card.Description>{student!.address}</Card.Description>
-          <Card.Description>{student!.phone}</Card.Description>
-        </Card.Content>
-        <Card.Content extra>
-          <Button
-            onClick={() => history.push(`/students/`)}
-            basic
-            color="grey"
-            content="Back"
-          />
-          <Button
-            as={Link}
-            to={`/studentNotes/${student.id}`}
-            basic
-            color="blue"
-            content="Notes"
-          />
+    <Card fluid>
+      <Card.Content header={student!.name} />
+      <Card.Content extra>
+        <Card.Description>
+          <div>
+            <b>Address:</b>&nbsp;&nbsp;&nbsp;{student!.address}
+          </div>
+          <div>
+            <b>Phone:</b>&nbsp;&nbsp;&nbsp;{student!.phone}
+          </div>
+        </Card.Description>
+      </Card.Content>
 
-          <Modal
-            open={open}
-            size="mini"
-            trigger={<Button floated="right" content="Delete" color="red" />}
-            onClose={() => setOpen(false)}
-            onOpen={() => setOpen(true)}
-          >
-            <Header content="Delete student?" />
-            <Modal.Content>
-              <p>Are you sure you like to delete this student?</p>
-            </Modal.Content>
-            <Modal.Actions>
-              <Button
-                color="red"
-                floated="right"
-                loading={submitting}
-                onClick={(e) =>
-                  deleteStudent(e, student.id)
-                    .finally(() => setOpen(false))
-                    .finally(() => history.push("/students"))
-                }
-              >
-                <Icon name="remove" /> YES DELETE
-              </Button>
-              <Button color="green" onClick={() => setOpen(false)}>
-                <Icon name="checkmark" /> No
-              </Button>
-            </Modal.Actions>
-          </Modal>
+      <Card.Content extra>
+        <Button
+          onClick={() => history.push(`/students/`)}
+          basic
+          color="grey"
+          content="Back"
+        />
+        <Button
+          as={Link}
+          to={`/studentNotes/${student.id}`}
+          basic
+          color="blue"
+          content="Notes"
+        />
 
-          <Button
-            as={Link}
-            to={`/manageStudent/${student.id}`}
-            basic
-            floated="right"
-            color="blue"
-            content="Edit"
-          />
-        </Card.Content>
-      </Card>
-    </h2>
+        <Modal
+          open={open}
+          size="mini"
+          trigger={<Button floated="right" content="Delete" color="red" />}
+          onClose={() => setOpen(false)}
+          onOpen={() => setOpen(true)}
+        >
+          <Header content="Delete student?" />
+          <Modal.Content>
+            <p>Are you sure you like to delete this student?</p>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button
+              color="red"
+              floated="right"
+              loading={submitting}
+              onClick={(e) =>
+                deleteStudent(e, student.id)
+                  .finally(() => setOpen(false))
+                  .finally(() => history.push("/students"))
+              }
+            >
+              <Icon name="remove" /> YES DELETE
+            </Button>
+            <Button color="green" onClick={() => setOpen(false)}>
+              <Icon name="checkmark" /> No
+            </Button>
+          </Modal.Actions>
+        </Modal>
+
+        <Button
+          as={Link}
+          to={`/manageStudent/${student.id}`}
+          basic
+          floated="right"
+          color="blue"
+          content="Edit"
+        />
+      </Card.Content>
+    </Card>
   );
 };
 

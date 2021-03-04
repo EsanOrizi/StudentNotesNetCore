@@ -14,7 +14,7 @@ const StudentList: React.FC = () => {
         {studentArrayFromMap.map((student) => (
           <Item key={student.id}>
             <Item.Content>
-              <Item.Header as="a">{student.name}</Item.Header>
+              <Item.Header>{student.name}</Item.Header>
               <Item.Extra>
                 <Button
                   as={Link}

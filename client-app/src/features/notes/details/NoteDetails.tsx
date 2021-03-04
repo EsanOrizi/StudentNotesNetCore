@@ -34,15 +34,13 @@ const NoteDetails: React.FC<RouteComponentProps<DetailParams>> = ({
   return (
     <Card fluid>
       <Card.Content header={note!.name} />
-      <Item.Extra>
+      <Card.Content extra>
         <Card.Description>
-          {`Progress ` + note!.progressRating}
+          <div><b>Progress:</b>&nbsp;&nbsp;&nbsp;{note.progressRating}</div>
+          <div><b>Note:</b>&nbsp;&nbsp;&nbsp;{note.extraNote}</div>
+          <div><b>Date:</b>&nbsp;&nbsp;&nbsp;{format(note.dateAdded!, "dd/MM/YYY")}</div>
         </Card.Description>
-        <Card.Description>{`Note ` + note!.extraNote}</Card.Description>
-        <Card.Description>
-          {`Date ` + format(note.dateAdded!, "dd/MM/YYY")}
-        </Card.Description>
-      </Item.Extra>
+      </Card.Content>
 
       <Card.Content extra>
         <Item.Extra>
@@ -50,7 +48,7 @@ const NoteDetails: React.FC<RouteComponentProps<DetailParams>> = ({
             onClick={() => history.push(`/studentNotes/${note.studentId}`)}
             basic
             floated="left"
-            color="grey"
+            color="black"
             content="Back"
           />
 

@@ -24,21 +24,20 @@ const NoteList: React.FC<IProps> = ({ studentId }) => {
     <>
       <Segment clearing>
         {/* <Item.Header as="a">{student.name + `'s notes`}</Item.Header> */}
-        <Item.Header as="a">{'NAME'}</Item.Header>
+        <Item.Header>{'NAME'}</Item.Header>
         <Item.Extra>
           <Button
             as={Link}
             to={`/students/`}
             basic
             floated="left"
-            color="grey"
+            color="black"
             content="Back"
           />
           <Button
             as={Link}
             to={`/createNote/${studentId}`}
             floated="right"
-
             content="New Note"
             color="blue"
           />
@@ -52,9 +51,9 @@ const NoteList: React.FC<IProps> = ({ studentId }) => {
                 <Item.Header as="a">{note.name}</Item.Header>
                 <Item.Meta></Item.Meta>
                 <Item.Description>
-                  <div>{note.progressRating}</div>
-                  <div>{note.extraNote}</div>
-                  <div>{format(note.dateAdded, "dd/MM/YYY")}</div>
+                  <div><b>Progress:</b>&nbsp;&nbsp;&nbsp;{note.progressRating}</div>
+                  <div><b>Note:</b>&nbsp;&nbsp;&nbsp;{note.extraNote}</div>
+                  <div><b>Date:</b>&nbsp;&nbsp;&nbsp;{format(note.dateAdded, "dd/MM/YYY")}</div>
                 </Item.Description>
                 <Item.Extra>
                   <Button
