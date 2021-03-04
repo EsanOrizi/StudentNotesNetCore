@@ -3,34 +3,46 @@ import { Item, Button, Segment } from "semantic-ui-react";
 import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
 import { RootStoreContext } from "../../../app/stores/rootStore";
-import {format} from 'date-fns';
+import { format } from "date-fns";
 
 interface IProps {
   studentId: string;
 }
 
-
-
 const NoteList: React.FC<IProps> = ({ studentId }) => {
   const rootStore = useContext(RootStoreContext);
   const { filterNotes, getStudent } = rootStore.mobxStore;
-  
+
   var student = getStudent(studentId);
 
- // useEffect(() => {
- // }, [getStudent, studentId]);
+  //  useEffect(() => {
+  //   var student = getStudent(studentId);
+
+  //  }, [getStudent, studentId]);
 
   return (
     <>
-      <Segment clearing >
-      <Item.Header as="a">{student.name + `'s notes`}</Item.Header>
-        <Button
-          as={Link}
-          to={`/createNote/${studentId}`}
-          floated="left"
-          content="New Note"
-          color="blue"
-        />
+      <Segment clearing>
+        {/* <Item.Header as="a">{student.name + `'s notes`}</Item.Header> */}
+        <Item.Header as="a">{'NAME'}</Item.Header>
+        <Item.Extra>
+          <Button
+            as={Link}
+            to={`/students/`}
+            basic
+            floated="left"
+            color="grey"
+            content="Back"
+          />
+          <Button
+            as={Link}
+            to={`/createNote/${studentId}`}
+            floated="right"
+
+            content="New Note"
+            color="blue"
+          />
+        </Item.Extra>
       </Segment>
       <Segment clearing>
         <Item.Group divided>
@@ -42,7 +54,7 @@ const NoteList: React.FC<IProps> = ({ studentId }) => {
                 <Item.Description>
                   <div>{note.progressRating}</div>
                   <div>{note.extraNote}</div>
-                  <div>{format (note.dateAdded , 'dd/MM/YYY')}</div>
+                  <div>{format(note.dateAdded, "dd/MM/YYY")}</div>
                 </Item.Description>
                 <Item.Extra>
                   <Button

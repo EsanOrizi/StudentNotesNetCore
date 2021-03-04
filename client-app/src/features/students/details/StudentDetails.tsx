@@ -40,50 +40,58 @@ const StudentDetails: React.FC<RouteComponentProps<DetailParams>> = ({
           <Card.Description>{student!.phone}</Card.Description>
         </Card.Content>
         <Card.Content extra>
-          <Button.Group widths={3}>
-            <Button
-              as={Link}
-              to={`/manageStudent/${student.id}`}
-              basic
-              color="blue"
-              content="Edit Student Details"
-            />
-            <Button
-              as={Link}
-              to={`/studentNotes/${student.id}`}
-              basic
-              color="blue"
-              content="Student's Notes"
-            />
-            <Modal
-              open={open}
-              size="mini"
-              trigger={<Button floated="right" content="Delete" color="red" />}
-              onClose={() => setOpen(false)}
-              onOpen={() => setOpen(true)}
-            >
-              <Header content="Delete student?" />
-              <Modal.Content>
-                <p>Are you sure you like to delete this student?</p>
-              </Modal.Content>
-              <Modal.Actions>
-                <Button
-                  color="red"
-                  loading={submitting}
-                  onClick={(e) =>
-                    deleteStudent(e, student.id)
-                      .finally(() => setOpen(false))
-                      .finally(() => history.push("/students"))
-                  }
-                >
-                  <Icon name="remove" /> YES DELETE
-                </Button>
-                <Button color="green" onClick={() => setOpen(false)}>
-                  <Icon name="checkmark" /> No
-                </Button>
-              </Modal.Actions>
-            </Modal>
-          </Button.Group>
+          <Button
+            onClick={() => history.push(`/students/`)}
+            basic
+            color="grey"
+            content="Back"
+          />
+          <Button
+            as={Link}
+            to={`/studentNotes/${student.id}`}
+            basic
+            color="blue"
+            content="Notes"
+          />
+
+          <Modal
+            open={open}
+            size="mini"
+            trigger={<Button floated="right" content="Delete" color="red" />}
+            onClose={() => setOpen(false)}
+            onOpen={() => setOpen(true)}
+          >
+            <Header content="Delete student?" />
+            <Modal.Content>
+              <p>Are you sure you like to delete this student?</p>
+            </Modal.Content>
+            <Modal.Actions>
+              <Button
+                color="red"
+                floated="right"
+                loading={submitting}
+                onClick={(e) =>
+                  deleteStudent(e, student.id)
+                    .finally(() => setOpen(false))
+                    .finally(() => history.push("/students"))
+                }
+              >
+                <Icon name="remove" /> YES DELETE
+              </Button>
+              <Button color="green" onClick={() => setOpen(false)}>
+                <Icon name="checkmark" /> No
+              </Button>
+            </Modal.Actions>
+          </Modal>
+
+          <Button
+            as={Link}
+            to={`/manageStudent/${student.id}`}
+            basic
+            floated="right"
+            color="blue"
+            content="Edit"
+          />
         </Card.Content>
       </Card>
     </h2>

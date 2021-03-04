@@ -28,7 +28,7 @@ const StudentList: React.FC = () => {
                   to={`/studentNotes/${student.id}`}
                   basic
                   color="blue"
-                  content="Student's Notes"
+                  content="Notes"
                 />
               </Item.Extra>
             </Item.Content>
