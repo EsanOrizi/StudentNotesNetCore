@@ -29,7 +29,7 @@ const NavBar: React.FC = () => {
               alt='logo'
               style={{ marginRight: '10px' }}
             />
-            StudentNotes
+            Learner Notes
           </Menu.Item>
           <Menu.Item
             name='Students'

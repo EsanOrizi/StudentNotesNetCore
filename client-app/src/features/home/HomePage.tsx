@@ -14,12 +14,12 @@ const HomePage = () => {
       <Container text>
         <Header as='h1' inverted>
           <Image
-            size='big'
+            size='massive'
             src='/assets/logo.png'
             alt='logo'
             style={{ marginBottom: 12 }}
           />
-          Pupil Notes
+          Learner Notes
         </Header>
         {isLoggedIn && user ? (
           <Fragment>
