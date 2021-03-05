@@ -31,15 +31,16 @@ const NoteList: React.FC<IProps> = ({ studentId }) => {
             to={`/students/`}
             basic
             floated="left"
-            color="black"
             content="Back"
+            color='black'
+
           />
           <Button
             as={Link}
             to={`/createNote/${studentId}`}
             floated="right"
             content="New Note"
-            color="blue"
+            color='instagram'
           />
         </Item.Extra>
       </Segment>
@@ -48,7 +49,7 @@ const NoteList: React.FC<IProps> = ({ studentId }) => {
           {filterNotes(studentId).map((note) => (
             <Item key={note.id}>
               <Item.Content>
-                <Item.Header as="a">{note.name}</Item.Header>
+                <Item.Header>{note.name}</Item.Header>
                 <Item.Meta></Item.Meta>
                 <Item.Description>
                   <div><b>Progress:</b>&nbsp;&nbsp;&nbsp;{note.progressRating}</div>
@@ -61,7 +62,7 @@ const NoteList: React.FC<IProps> = ({ studentId }) => {
                     to={`/notes/${note.id}`}
                     floated="right"
                     content="View"
-                    color="blue"
+                    color='instagram'
                   />
                 </Item.Extra>
               </Item.Content>

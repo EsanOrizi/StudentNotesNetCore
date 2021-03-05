@@ -21,13 +21,14 @@ const StudentList: React.FC = () => {
                   to={`/students/${student.id}`}
                   floated="right"
                   content="View"
-                  color="blue"
+                  color='instagram'
                 />
-                <Button
+                <Button class="ui button"
                   as={Link}
                   to={`/studentNotes/${student.id}`}
+                  
                   basic
-                  color="blue"
+                  color='black'
                   content="Notes"
                 />
               </Item.Extra>

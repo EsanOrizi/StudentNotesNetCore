@@ -33,7 +33,7 @@ const LoginFrom = () => {
         dirtySinceLastSubmit,
       }) => (
         <Form onSubmit={handleSubmit} error>
-          <Header as='h2' content='Login' color='teal' textAlign='center' />
+          <Header as='h2' content='Login' color='black' textAlign='center' />
           <Field name='email' component={TextInput} placeholder='Email' />
           <Field
             name='password'
@@ -48,7 +48,7 @@ const LoginFrom = () => {
           <Button
             disabled={(invalid && !dirtySinceLastSubmit) || pristine}
             loading={submitting}
-            color='teal'
+            color='instagram'
             content='login'
             fluid
           />

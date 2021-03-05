@@ -86,7 +86,7 @@ const StudentForm: React.FC<RouteComponentProps<DetailsParams>> = ({ match, hist
               floated='right'
               positive
               type='submit'
-              content='submit'
+              content='Submit'
             />
             <Button
               onClick={
@@ -97,6 +97,8 @@ const StudentForm: React.FC<RouteComponentProps<DetailsParams>> = ({ match, hist
               disabled={loading}
               floated='right'
               type='button'
+              basic
+              color='black'
               content='Cancel'
             />
           </Form>

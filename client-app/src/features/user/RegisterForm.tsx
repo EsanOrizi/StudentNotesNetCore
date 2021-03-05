@@ -36,7 +36,7 @@ const RegisterFrom = () => {
         dirtySinceLastSubmit,
       }) => (
         <Form onSubmit={handleSubmit} error>
-          <Header as='h2' content='Register' color='teal' textAlign='center' />
+          <Header as='h2' content='Register' color='black' textAlign='center' />
           <Field name='username' component={TextInput} placeholder='Username' />
           <Field name='displayName' component={TextInput} placeholder='Display Name' />
           <Field name='email' component={TextInput} placeholder='Email' />
@@ -53,7 +53,7 @@ const RegisterFrom = () => {
           <Button
             disabled={(invalid && !dirtySinceLastSubmit) || pristine}
             loading={submitting}
-            color='teal'
+            color='instagram'
             content='Register'
             fluid
           />

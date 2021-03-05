@@ -40,7 +40,7 @@ const NavBar: React.FC = () => {
             <Button
               as={NavLink}
               to='/createStudent'
-              positive
+              color='instagram'
               content='New Student'
             />
           </Menu.Item>
@@ -55,7 +55,7 @@ const NavBar: React.FC = () => {
                 pointing='top left'
                 text={user.displayName}
               >
-                <Dropdown.Menu>
+                <Dropdown.Menu direction='left'>
                   <Dropdown.Item
                     as={Link}
                     to={`/profile/username`}

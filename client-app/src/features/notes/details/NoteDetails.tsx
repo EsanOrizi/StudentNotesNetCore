@@ -87,7 +87,7 @@ const NoteDetails: React.FC<RouteComponentProps<DetailParams>> = ({
             to={`/manageNote/${note.id}`}
             basic
             floated="right"
-            color="blue"
+            color="black"
             content="Edit"
           />
         </Item.Extra>

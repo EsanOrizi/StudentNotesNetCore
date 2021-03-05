@@ -144,7 +144,7 @@ const NoteForm: React.FC<RouteComponentProps<DetailsParams>> = ({
               floated="right"
               positive
               type="submit"
-              content="submit"
+              content="Submit"
             />
             <Button
               onClick={
@@ -154,6 +154,8 @@ const NoteForm: React.FC<RouteComponentProps<DetailsParams>> = ({
               }
               disabled={loading}
               floated="right"
+              basic
+              color='black'
               type="button"
               content="Cancel"
             />

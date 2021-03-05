@@ -49,21 +49,21 @@ const StudentDetails: React.FC<RouteComponentProps<DetailParams>> = ({
         <Button
           onClick={() => history.push(`/students/`)}
           basic
-          color="grey"
+          color="black"
           content="Back"
         />
         <Button
           as={Link}
           to={`/studentNotes/${student.id}`}
           basic
-          color="blue"
+          color="black"
           content="Notes"
         />
 
         <Modal
           open={open}
           size="mini"
-          trigger={<Button floated="right" content="Delete" color="red" />}
+          trigger={<Button floated="right" content="Delete" color="red"/>}
           onClose={() => setOpen(false)}
           onOpen={() => setOpen(true)}
         >
@@ -95,7 +95,7 @@ const StudentDetails: React.FC<RouteComponentProps<DetailParams>> = ({
           to={`/manageStudent/${student.id}`}
           basic
           floated="right"
-          color="blue"
+          color="black"
           content="Edit"
         />
       </Card.Content>
