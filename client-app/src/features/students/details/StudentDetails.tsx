@@ -27,7 +27,7 @@ const StudentDetails: React.FC<RouteComponentProps<DetailParams>> = ({
     loadStudent(match.params.id);
   }, [loadStudent, match.params.id, history]);
 
-  if (loadingInitial) return <LoadingComponent content="Loading student" />;
+  //if (loadingInitial) return <LoadingComponent content="Loading student" />;
 
   if (!student) return <h2>Student Not Found</h2>;
 

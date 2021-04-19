@@ -28,7 +28,7 @@ const NoteDetails: React.FC<RouteComponentProps<DetailParams>> = ({
     loadNote(match.params.id);
   }, [loadNote, match.params.id]);
 
-  if (loadingInitial) return <LoadingComponent content="Loading note" />;
+ // if (loadingInitial) return <LoadingComponent content="Loading note" />;
 
   if (!note) return <h2>Note not Found</h2>;
   return (

@@ -19,7 +19,7 @@ const NoteDashboard: React.FC<RouteComponentProps<DetailParams>> = ({ match, his
     loadNotes();
   }, [loadNotes]);
 
-  if (loadingInitial) return <LoadingComponent content='Loading students...' />;
+ // if (loadingInitial) return <LoadingComponent content='Loading students...' />;
 
   return (
     <Grid>
