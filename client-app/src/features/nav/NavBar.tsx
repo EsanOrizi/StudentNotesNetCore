@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import {
   Menu,
   Container,
-  Button,
   Dropdown,
   Image,
 } from 'semantic-ui-react';

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { Item, Button, Segment } from "semantic-ui-react";
 import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
@@ -11,9 +11,8 @@ interface IProps {
 
 const NoteList: React.FC<IProps> = ({ studentId }) => {
   const rootStore = useContext(RootStoreContext);
-  const { filterNotes, getStudent } = rootStore.mobxStore;
+  const { filterNotes } = rootStore.mobxStore;
 
-  var student = getStudent(studentId);
 
   //  useEffect(() => {
   //   var student = getStudent(studentId);

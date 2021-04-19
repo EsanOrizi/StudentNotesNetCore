@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { Card, Button, Modal, Header, Icon, Item } from "semantic-ui-react";
 import { observer } from "mobx-react-lite";
 import { RouteComponentProps, Link } from "react-router-dom";
-import LoadingComponent from "../../../app/layout/LoadingComponent";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import { format } from "date-fns";
 
@@ -17,7 +16,6 @@ const NoteDetails: React.FC<RouteComponentProps<DetailParams>> = ({
   const rootStore = useContext(RootStoreContext);
   const {
     note,
-    loadingInitial,
     loadNote,
     submitting,
     deleteNote,

@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { Card, Button, Modal, Header, Icon } from "semantic-ui-react";
 import { observer } from "mobx-react-lite";
 import { RouteComponentProps, Link } from "react-router-dom";
-import LoadingComponent from "../../../app/layout/LoadingComponent";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 
 interface DetailParams {
@@ -17,7 +16,6 @@ const StudentDetails: React.FC<RouteComponentProps<DetailParams>> = ({
   const {
     student,
     loadStudent,
-    loadingInitial,
     deleteStudent,
     submitting,
   } = rootStore.mobxStore;
