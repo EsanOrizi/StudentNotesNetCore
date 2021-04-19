@@ -145,6 +145,7 @@ const NoteForm: React.FC<RouteComponentProps<DetailsParams>> = ({
               positive
               type="submit"
               content="Submit"
+              compact
             />
             <Button
               onClick={

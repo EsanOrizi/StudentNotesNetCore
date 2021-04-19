@@ -24,7 +24,7 @@ const StudentList: React.FC = () => {
                   color='instagram'
                   compact
                 />
-                <Button class="ui button"
+                <Button className="ui button"
                   as={Link}
                   to={`/studentNotes/${student.id}`}
                   
