@@ -12,7 +12,7 @@ const HomePage = () => {
   return (
     <Segment inverted textAlign='center' vertical className='masthead'>
       <Container text>
-        <Header as='h1' inverted>
+        <Header as='h2' inverted>
           <Image
             size='massive'
             src='/assets/logo.png'
@@ -23,18 +23,18 @@ const HomePage = () => {
         </Header>
         {isLoggedIn && user ? (
           <Fragment>
-            <Header as='h2' inverted content={`Welcome back ${user.displayName}`} />
-            <Button as={Link} to='/students' size='huge' inverted>
+            <Header as='h3' inverted content={`Welcome back ${user.displayName}`} />
+            <Button compact as={Link} to='/students' size='big' inverted>
               Go to students
             </Button>
           </Fragment>
         ) : (
           <Fragment>
-            <Header as='h2' inverted content='Welcome to Student Notes' />
-            <Button onClick={() => openModal(<LoginFrom />)} size='huge' inverted>
+            <Header as='h3' inverted content='Welcome to Student Notes' />
+            <Button compact onClick={() => openModal(<LoginFrom />)} size='big' inverted>
               Login
             </Button>
-            <Button onClick={() => openModal(<RegisterFrom />)} size='huge' inverted>
+            <Button compact onClick={() => openModal(<RegisterFrom />)} size='big' inverted>
               Register
             </Button>
           </Fragment>

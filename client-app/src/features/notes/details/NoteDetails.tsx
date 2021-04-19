@@ -50,6 +50,7 @@ const NoteDetails: React.FC<RouteComponentProps<DetailParams>> = ({
             floated="left"
             color="black"
             content="Back"
+            compact
           />
 
           <Modal
@@ -66,6 +67,7 @@ const NoteDetails: React.FC<RouteComponentProps<DetailParams>> = ({
             <Modal.Actions>
               <Button
                 floated="right"
+                compact
                 color="red"
                 loading={submitting}
                 onClick={(e) =>
@@ -76,7 +78,7 @@ const NoteDetails: React.FC<RouteComponentProps<DetailParams>> = ({
               >
                 <Icon name="remove" /> YES DELETE
               </Button>
-              <Button color="green" onClick={() => setOpen(false)}>
+              <Button compact color="green" onClick={() => setOpen(false)}>
                 <Icon name="checkmark" /> No
               </Button>
             </Modal.Actions>
@@ -89,6 +91,7 @@ const NoteDetails: React.FC<RouteComponentProps<DetailParams>> = ({
             floated="right"
             color="black"
             content="Edit"
+            compact
           />
         </Item.Extra>
       </Card.Content>

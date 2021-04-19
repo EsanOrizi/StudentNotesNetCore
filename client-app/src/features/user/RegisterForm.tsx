@@ -56,6 +56,7 @@ const RegisterFrom = () => {
             color='instagram'
             content='Register'
             fluid
+            compact
           />
         </Form>
       )}

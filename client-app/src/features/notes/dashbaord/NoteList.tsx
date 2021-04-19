@@ -27,6 +27,7 @@ const NoteList: React.FC<IProps> = ({ studentId }) => {
         <Item.Header>{'NAME'}</Item.Header>
         <Item.Extra>
           <Button
+            compact
             as={Link}
             to={`/students/`}
             basic
@@ -36,6 +37,7 @@ const NoteList: React.FC<IProps> = ({ studentId }) => {
 
           />
           <Button
+            compact
             as={Link}
             to={`/createNote/${studentId}`}
             floated="right"
@@ -58,6 +60,7 @@ const NoteList: React.FC<IProps> = ({ studentId }) => {
                 </Item.Description>
                 <Item.Extra>
                   <Button
+                    compact
                     as={Link}
                     to={`/notes/${note.id}`}
                     floated="right"

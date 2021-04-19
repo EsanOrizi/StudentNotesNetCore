@@ -155,6 +155,7 @@ const NoteForm: React.FC<RouteComponentProps<DetailsParams>> = ({
               disabled={loading}
               floated="right"
               basic
+              compact
               color='black'
               type="button"
               content="Cancel"

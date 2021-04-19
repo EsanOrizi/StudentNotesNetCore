@@ -22,6 +22,7 @@ const StudentList: React.FC = () => {
                   floated="right"
                   content="View"
                   color='instagram'
+                  compact
                 />
                 <Button class="ui button"
                   as={Link}
@@ -30,6 +31,7 @@ const StudentList: React.FC = () => {
                   basic
                   color='black'
                   content="Notes"
+                  compact
                 />
               </Item.Extra>
             </Item.Content>

@@ -51,6 +51,7 @@ const LoginFrom = () => {
             color='instagram'
             content='login'
             fluid
+            compact
           />
         </Form>
       )}

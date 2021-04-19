@@ -51,6 +51,7 @@ const StudentDetails: React.FC<RouteComponentProps<DetailParams>> = ({
           basic
           color="black"
           content="Back"
+          compact
         />
         <Button
           as={Link}
@@ -58,12 +59,13 @@ const StudentDetails: React.FC<RouteComponentProps<DetailParams>> = ({
           basic
           color="black"
           content="Notes"
+          compact
         />
 
         <Modal
           open={open}
           size="mini"
-          trigger={<Button floated="right" content="Delete" color="red"/>}
+          trigger={<Button compact floated="right" content="Delete" color="red"/>}
           onClose={() => setOpen(false)}
           onOpen={() => setOpen(true)}
         >
@@ -74,6 +76,7 @@ const StudentDetails: React.FC<RouteComponentProps<DetailParams>> = ({
           <Modal.Actions>
             <Button
               color="red"
+              compact
               floated="right"
               loading={submitting}
               onClick={(e) =>
@@ -84,13 +87,13 @@ const StudentDetails: React.FC<RouteComponentProps<DetailParams>> = ({
             >
               <Icon name="remove" /> YES DELETE
             </Button>
-            <Button color="green" onClick={() => setOpen(false)}>
+            <Button compact color="green" onClick={() => setOpen(false)}>
               <Icon name="checkmark" /> No
             </Button>
           </Modal.Actions>
         </Modal>
 
-        <Button
+        <Button compact
           as={Link}
           to={`/manageStudent/${student.id}`}
           basic

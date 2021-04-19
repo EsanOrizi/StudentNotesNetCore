@@ -16,7 +16,7 @@ const NavBar: React.FC = () => {
 
   return (
     <div>
-      <Menu fixed='top' inverted>
+      <Menu fixed='top' inverted size={'tiny'} compact stackable={false}>
         <Container>
           <Menu.Item
             header
@@ -29,21 +29,19 @@ const NavBar: React.FC = () => {
               alt='logo'
               style={{ marginRight: '10px' }}
             />
-            Learner Notes
           </Menu.Item>
           <Menu.Item
             name='Students'
             as={NavLink}
             to='/students'
           />
-          <Menu.Item>
-            <Button
-              as={NavLink}
-              to='/createStudent'
-              color='instagram'
-              content='New Student'
-            />
-          </Menu.Item>
+
+          <Menu.Item
+            name='New Student'
+            as={NavLink}
+            to='/createStudent'
+          />
+      
           {user && (
             <Menu.Item position='right'>
               <Image

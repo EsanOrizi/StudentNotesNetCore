@@ -81,6 +81,7 @@ const StudentForm: React.FC<RouteComponentProps<DetailsParams>> = ({ match, hist
               component={TextInput}
             />
             <Button
+              compact
               loading={submitting}
               disabled={loading || invalid || pristine}
               floated='right'
@@ -100,6 +101,7 @@ const StudentForm: React.FC<RouteComponentProps<DetailsParams>> = ({ match, hist
               basic
               color='black'
               content='Cancel'
+              compact
             />
           </Form>
         )}
