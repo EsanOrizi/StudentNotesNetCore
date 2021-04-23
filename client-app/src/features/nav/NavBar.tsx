@@ -26,6 +26,8 @@ const NavBar: React.FC = () => {
             <img
               src='/assets/logo.png'
               alt='logo'
+              width='30'
+              height='30'
               style={{ marginRight: '10px' }}
             />
           </Menu.Item>
@@ -47,10 +49,12 @@ const NavBar: React.FC = () => {
                 avatar
                 spaced='right'
                 src={'/assets/user.png'}
+                alt='avatar'
               />
               <Dropdown
                 pointing='top left'
                 text={user.displayName}
+                aria-label="user diaplay name"
               >
                 <Dropdown.Menu direction='left'>
                   <Dropdown.Item

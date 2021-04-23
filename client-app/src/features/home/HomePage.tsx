@@ -14,6 +14,8 @@ const HomePage = () => {
       <Container text>
         <Header as='h2' inverted>
           <Image
+            width='30'
+            height='30'
             size='massive'
             src='/assets/logo.png'
             alt='logo'
