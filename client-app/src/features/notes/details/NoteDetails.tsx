@@ -54,7 +54,7 @@ const NoteDetails: React.FC<RouteComponentProps<DetailParams>> = ({
           <Modal
             open={open}
             size="mini"
-            trigger={<Button floated="right" content="Delete" color="red" />}
+            trigger={<Button compact floated="right" content="Delete" color="red" />}
             onClose={() => setOpen(false)}
             onOpen={() => setOpen(true)}
           >
