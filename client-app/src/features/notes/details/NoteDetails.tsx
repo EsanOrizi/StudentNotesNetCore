@@ -14,19 +14,12 @@ const NoteDetails: React.FC<RouteComponentProps<DetailParams>> = ({
   history,
 }) => {
   const rootStore = useContext(RootStoreContext);
-  const {
-    note,
-    loadNote,
-    submitting,
-    deleteNote,
-  } = rootStore.mobxStore;
+  const { note, loadNote, submitting, deleteNote } = rootStore.mobxStore;
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
     loadNote(match.params.id);
   }, [loadNote, match.params.id]);
-
- // if (loadingInitial) return <LoadingComponent content="Loading note" />;
 
   if (!note) return <h2>Note not Found</h2>;
   return (
@@ -34,27 +27,35 @@ const NoteDetails: React.FC<RouteComponentProps<DetailParams>> = ({
       <Card.Content header={note!.name} />
       <Card.Content extra>
         <Card.Description>
-          <div><b>Progress:</b>&nbsp;&nbsp;&nbsp;{note.progressRating}</div>
-          <div><b>Note:</b>&nbsp;&nbsp;&nbsp;{note.extraNote}</div>
-          <div><b>Date:</b>&nbsp;&nbsp;&nbsp;{format(note.dateAdded!, "dd/MM/YYY")}</div>
+          <div>
+            <b>Progress:</b>&nbsp;&nbsp;&nbsp;{note.progressRating}
+          </div>
+          <div>
+            <b>Note:</b>&nbsp;&nbsp;&nbsp;{note.extraNote}
+          </div>
+          <div>
+            <b>Date:</b>&nbsp;&nbsp;&nbsp;{format(note.dateAdded!, "dd/MM/YYY")}
+          </div>
         </Card.Description>
       </Card.Content>
 
       <Card.Content extra>
         <Item.Extra>
           <Button
-            onClick={() => history.push(`/studentNotes/${note.studentId}`)}
+            onClick={() => history.push(`/students/${note.studentId}`)}
             basic
             floated="left"
             color="black"
-            content="Back"
+            content="Looks good"
             compact
           />
 
           <Modal
             open={open}
             size="mini"
-            trigger={<Button compact floated="right" content="Delete" color="red" />}
+            trigger={
+              <Button compact floated="right" content="Delete" color="red" />
+            }
             onClose={() => setOpen(false)}
             onOpen={() => setOpen(true)}
           >

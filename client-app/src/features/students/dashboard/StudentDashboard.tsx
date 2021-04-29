@@ -12,8 +12,6 @@ const StudentDashboard: React.FC = () => {
     loadStudents();
   }, [loadStudents]);
 
- // if (loadingInitial) return <LoadingComponent content='Loading students...' />;
-
   return (
     <Grid>
       <Grid.Column>

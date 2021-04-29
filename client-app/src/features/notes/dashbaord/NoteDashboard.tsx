@@ -23,7 +23,6 @@ const NoteDashboard: React.FC<RouteComponentProps<DetailParams>> = ({ match, his
   return (
     <Grid>
       <Grid.Column>
-        <NoteList studentId={studentId} />
       </Grid.Column>
     </Grid>
   );
