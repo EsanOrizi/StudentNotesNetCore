@@ -57,12 +57,12 @@ const NavBar: React.FC = () => {
                 aria-label="user diaplay name"
               >
                 <Dropdown.Menu direction='left'>
-                  <Dropdown.Item
+                  {/* <Dropdown.Item
                     as={Link}
                     to={`/profile/username`}
                     text='My profile'
                     icon='user'
-                  />
+                  /> */}
                   <Dropdown.Item
                     onClick={logout}
                     text='Logout'

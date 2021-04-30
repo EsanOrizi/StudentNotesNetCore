@@ -31,7 +31,9 @@ export default class MobxStore {
   }
 
   @action filterNotes = (id: string) => {
-    var filteredNotes = this.noteArrayFromMap.filter((i) => i.studentId === id);
+    var filteredNotes = this.noteArrayFromMap.filter((i) => i.studentId === id).sort(function (a, b) {
+      return b.dateAdded - a.dateAdded;
+    });
     return filteredNotes;
   };
 
