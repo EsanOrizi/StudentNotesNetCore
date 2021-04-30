@@ -40,6 +40,9 @@ const StudentDetails: React.FC<RouteComponentProps<DetailParams>> = ({
             <div>
               <b>Phone:</b>&nbsp;&nbsp;&nbsp;{student!.phone}
             </div>
+            <div>
+              <b>Hourly Rate:</b>&nbsp;&nbsp;&nbsp;{student!.rate}
+            </div>
           </Card.Description>
         </Card.Content>
 

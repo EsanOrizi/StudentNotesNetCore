@@ -14,11 +14,16 @@ import {
   isRequired,
 } from "revalidate";
 import { RootStoreContext } from "../../../app/stores/rootStore";
+import NumberInput from "../../../app/common/form/NumberInput";
 
 const validate = combineValidators({
   name: isRequired({ message: "name is required" }),
   address: isRequired({ message: "address is required" }),
   phone: composeValidators(
+    isRequired({ message: "Can not be Empty" }),
+    isNumeric({ message: "Must be a number" })
+  )(),
+  rate: composeValidators(
     isRequired({ message: "Can not be Empty" }),
     isNumeric({ message: "Must be a number" })
   )(),
@@ -109,6 +114,12 @@ const StudentForm: React.FC<RouteComponentProps<DetailsParams>> = ({
                 placeholder="Phone"
                 value={student.phone}
                 component={TextInput}
+              />
+              <Field
+                name="rate"
+                placeholder="Rate"
+                value={student.rate}
+                component={NumberInput}
               />
               <Button
                 compact

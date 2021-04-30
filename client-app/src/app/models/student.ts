@@ -3,6 +3,7 @@ export interface IStudent {
   name: string;
   address: string;
   phone: string;
+  rate: number;
 }
 
 export class StudentFormValues implements IStudent {
@@ -10,6 +11,7 @@ export class StudentFormValues implements IStudent {
   name: string = '';
   address: string = '';
   phone: string = '';
+  rate: number = 0;
 
   constructor(init?: IStudent) {
     Object.assign(this, init);

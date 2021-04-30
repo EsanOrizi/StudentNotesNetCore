@@ -22,6 +22,8 @@ namespace Application.Students
             public string Address { get; set; }
 
             public string Phone { get; set; }
+
+            public int Rate { get; set; }
         }
 
         public class CommandValidator : AbstractValidator<Command>
@@ -31,6 +33,7 @@ namespace Application.Students
                 RuleFor(x => x.Name).NotEmpty();
                 RuleFor(x => x.Address).NotEmpty();
                 RuleFor(x => x.Phone).NotEmpty();
+                RuleFor(x => x.Rate).NotEmpty();
             }
         }
 

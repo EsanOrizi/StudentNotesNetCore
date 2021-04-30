@@ -20,6 +20,8 @@ namespace Application.Students
             public string Address { get; set; }
 
             public string Phone { get; set; }
+
+            public int? Rate { get; set; }
         }
 
 
@@ -30,6 +32,7 @@ namespace Application.Students
                 RuleFor(x => x.Name).NotEmpty();
                 RuleFor(x => x.Address).NotEmpty();
                 RuleFor(x => x.Phone).NotEmpty();
+                RuleFor(x => x.Rate).NotEmpty();
             }
         }
         public class Handler : IRequestHandler<Command>
@@ -52,6 +55,7 @@ namespace Application.Students
                 student.Name = request.Name ?? student.Name;
                 student.Address = request.Address ?? student.Address;
                 student.Phone = request.Phone ?? student.Phone;
+                student.Rate = request.Rate ?? student.Rate;
 
 
                 var success = await _context.SaveChangesAsync() > 0;
