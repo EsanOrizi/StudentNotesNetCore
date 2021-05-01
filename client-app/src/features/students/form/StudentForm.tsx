@@ -117,7 +117,8 @@ const StudentForm: React.FC<RouteComponentProps<DetailsParams>> = ({
               />
               <Field
                 name="rate"
-                placeholder="Rate"
+                placeholder="Hourly Rate"
+                
                 value={student.rate}
                 component={NumberInput}
               />

@@ -11,7 +11,7 @@ export class StudentFormValues implements IStudent {
   name: string = '';
   address: string = '';
   phone: string = '';
-  rate: number = 0;
+  rate: any = null;
 
   constructor(init?: IStudent) {
     Object.assign(this, init);

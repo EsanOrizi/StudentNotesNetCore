@@ -25,20 +25,21 @@ const NoteList: React.FC<IProps> = ({ studentId }) => {
         {filterNotes(studentId).map((note) => (
           <Item key={note.id}>
             <Item.Content>
-              <Item.Header>{note.name}</Item.Header>
+              <Item.Header>{format(note.dateAdded, "dd/MM/YYY")}</Item.Header>
               <Item.Meta></Item.Meta>
               <Item.Description>
                 <div>
-                  <b>Progress:</b>&nbsp;&nbsp;&nbsp;{note.progressRating}
+                  <b>What we did:</b>&nbsp;&nbsp;&nbsp;
+                  {note.name}
                 </div>
                 <div>
-                  <b>Note:</b>&nbsp;&nbsp;&nbsp;{note.extraNote}
+                  <b>How did it go:</b>&nbsp;&nbsp;&nbsp;{note.progressRating}
                 </div>
                 <div>
-                  <b>Date:</b>&nbsp;&nbsp;&nbsp;
-                  {format(note.dateAdded, "dd/MM/YYY")}
+                  <b>Notes:</b>&nbsp;&nbsp;&nbsp;{note.extraNote}
                 </div>
-              </Item.Description>
+                
+            </Item.Description>
 
               <Button
                 as={Link}

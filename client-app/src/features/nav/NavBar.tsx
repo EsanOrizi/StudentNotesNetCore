@@ -6,7 +6,7 @@ import {
   Image,
 } from 'semantic-ui-react';
 import { observer } from 'mobx-react-lite';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { RootStoreContext } from '../../app/stores/rootStore';
 
 const NavBar: React.FC = () => {
@@ -57,12 +57,6 @@ const NavBar: React.FC = () => {
                 aria-label="user diaplay name"
               >
                 <Dropdown.Menu direction='left'>
-                  {/* <Dropdown.Item
-                    as={Link}
-                    to={`/profile/username`}
-                    text='My profile'
-                    icon='user'
-                  /> */}
                   <Dropdown.Item
                     onClick={logout}
                     text='Logout'

@@ -121,19 +121,19 @@ const NoteForm: React.FC<RouteComponentProps<DetailsParams>> = ({
             <Form onSubmit={handleSubmit} loading={loading}>
               <Field
                 name="name"
-                placeholder="Name"
+                placeholder="What we did"
                 value={note.name}
                 component={TextInput}
               />
               <Field
                 name="progressRating"
-                placeholder="progressRating"
+                placeholder="How did it do"
                 value={note.progressRating}
                 component={TextInput}
               />
               <Field
                 name="extraNote"
-                placeholder="extraNote"
+                placeholder="Notes"
                 value={note.extraNote}
                 component={TextAreaInput}
                 rows={3}
