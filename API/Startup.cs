@@ -111,7 +111,10 @@ namespace API
                 
             }
 
-                     app.UseRouting();
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
+            app.UseRouting();
             app.UseCors("CorsPolicy");
 
             app.UseAuthentication();
@@ -120,6 +123,7 @@ namespace API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapFallbackToController("Index", "Fallback");
             });
         }
     }
