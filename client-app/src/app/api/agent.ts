@@ -5,7 +5,7 @@ import { history } from '../..';
 import { toast } from 'react-toastify';
 import { IUser, IUserFormValues } from '../models/user';
 
-axios.defaults.baseURL = 'https://studentnotes.azurewebsites.net/api';
+axios.defaults.baseURL = 'http://localhost:5000/api';
 
 axios.interceptors.request.use(
   (config) => {
