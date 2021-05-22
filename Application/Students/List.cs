@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 using Application.Interfaces;
 using Domain;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using Persistence;
+using Persistence.Repositories;
 
 namespace Application.Students
 {
@@ -17,24 +16,25 @@ namespace Application.Students
 
         public class Handler : IRequestHandler<Query, List<Student>>
         {
-            private readonly DataContext _context;
+            private readonly IAppUserRepository _appUserRepository;
             private readonly IUserAccessor _userAccessor;
-            public Handler(DataContext context, IUserAccessor userAccessor)
+            private readonly IStudentRepository _studentRepository;
+            public Handler(IAppUserRepository appUserRepository, IUserAccessor userAccessor, IStudentRepository studentRepository)
             {
                 _userAccessor = userAccessor;
-                _context = context;
+                _appUserRepository = appUserRepository;
+                _studentRepository = studentRepository;
 
             }
 
             public async Task<List<Student>> Handle(Query request, CancellationToken cancellationToken)
             {
 
-                var user = await _context.Users.SingleOrDefaultAsync(x =>
-                x.UserName == _userAccessor.GetCurrentUsername());
+               var user = await _appUserRepository.FindOne(x =>
+               x.UserName == _userAccessor.GetCurrentUsername());
 
-                var students = await _context.Students
-                .Where(x => x.AppUserId == new Guid(user.Id)).ToListAsync();
-
+                var students = (List<Student>) await _studentRepository.FindAll(x => x.AppUserId == new Guid(user.Id));
+              
                 return students;
             }
         }

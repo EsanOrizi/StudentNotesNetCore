@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Application.Errors;
 using Domain;
 using MediatR;
-using Persistence;
+using Persistence.Repositories;
 
 namespace Application.Students
 {
@@ -18,18 +18,15 @@ namespace Application.Students
 
         public class Handler : IRequestHandler<Query, Student>
         {
-            private readonly DataContext _context;
-            public Handler(DataContext context)
+            private readonly StudentRepository _studentRepository;
+            public Handler(StudentRepository studentRepository)
             {
-                _context = context;
+                _studentRepository = studentRepository;
             }
 
             public async Task<Student> Handle(Query request, CancellationToken cancellationToken)
             {
-
-
-
-                var student = await _context.Students.FindAsync(request.Id);
+                var student =  await _studentRepository.GetById(request.Id);
 
                 if (student == null)
                     throw new RestException(HttpStatusCode.NotFound, new { student = "Not Found" });

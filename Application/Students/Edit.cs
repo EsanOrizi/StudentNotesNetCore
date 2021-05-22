@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Application.Errors;
 using FluentValidation;
 using MediatR;
-using Persistence;
+using Persistence.Repositories;
 
 namespace Application.Students
 {
@@ -37,32 +37,29 @@ namespace Application.Students
         }
         public class Handler : IRequestHandler<Command>
         {
-            private readonly DataContext _context;
-            public Handler(DataContext context)
+            private readonly IStudentRepository _studentRepository;
+            public Handler(IStudentRepository studentRepository)
             {
-                _context = context;
+                _studentRepository = studentRepository;
             }
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
 
-                var student = await _context.Students.FindAsync(request.Id);
+                var student = await _studentRepository.GetById(request.Id);
 
                 if (student == null)
                     throw new RestException(HttpStatusCode.NotFound, new { student = "Not Found" });
-
 
                 student.Name = request.Name ?? student.Name;
                 student.Address = request.Address ?? student.Address;
                 student.Phone = request.Phone ?? student.Phone;
                 student.Rate = request.Rate ?? student.Rate;
 
+                await _studentRepository.Save();
 
-                var success = await _context.SaveChangesAsync() > 0;
+                return Unit.Value;
 
-                if (success) return Unit.Value;
-
-                throw new Exception("Problem saving changes");
             }
         }
     }

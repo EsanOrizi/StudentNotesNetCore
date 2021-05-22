@@ -2,13 +2,10 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Persistence;
 using FluentValidation;
 using System.Net;
 using Application.Errors;
-
-
-
+using Persistence.Repositories;
 
 namespace Application.Notes
 {
@@ -41,21 +38,19 @@ namespace Application.Notes
 
         public class Handler : IRequestHandler<Command>
         {
-            private readonly DataContext _context;
-            public Handler(DataContext context)
+            private readonly INoteRepository _noteRepository;
+            public Handler(INoteRepository noteRepository)
             {
-                _context = context;
+                _noteRepository = noteRepository;
             }
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
 
-                var note = await _context.Notes.FindAsync(request.Id);
+                var note =  await _noteRepository.GetById(request.Id);
 
                 if (note == null)
                     throw new RestException(HttpStatusCode.NotFound, new { note = "Not Found" });
-
-
 
                 note.Name = request.Name ?? note.Name;
                 note.ProgressRating = request.ProgressRating ?? note.ProgressRating;
@@ -63,12 +58,10 @@ namespace Application.Notes
                 note.DateAdded = request.DateAdded ?? note.DateAdded;
                 note.StudentId = request.StudentId ?? note.StudentId;
 
+                await _noteRepository.Save();
+               
+                return Unit.Value;
 
-                var success = await _context.SaveChangesAsync() > 0;
-
-                if (success) return Unit.Value;
-
-                throw new Exception("Problem saving changes");
             }
         }
     }

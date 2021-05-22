@@ -5,8 +5,7 @@ using Application.Interfaces;
 using Domain;
 using FluentValidation;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using Persistence;
+using Persistence.Repositories;
 
 namespace Application.Students
 {
@@ -39,19 +38,22 @@ namespace Application.Students
 
         public class Handler : IRequestHandler<Command>
         {
-            private readonly DataContext _context;
+            private readonly IAppUserRepository _appUserRepository;
             private readonly IUserAccessor _userAccessor;
-            public Handler(DataContext context, IUserAccessor userAccessor)
+            private readonly IStudentRepository _studentRepository;
+            public Handler(IAppUserRepository appUserRepository, IUserAccessor userAccessor, IStudentRepository studentRepository)
             {
                 _userAccessor = userAccessor;
-                _context = context;
+                _appUserRepository = appUserRepository;
+                _studentRepository = studentRepository;
+
             }
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
 
-                var user = await _context.Users.SingleOrDefaultAsync(x =>
-                x.UserName == _userAccessor.GetCurrentUsername());
+               var user = await _appUserRepository.FindOne(x =>
+               x.UserName == _userAccessor.GetCurrentUsername());
 
                 var student = new Student
                 {
@@ -62,12 +64,9 @@ namespace Application.Students
                     AppUserId = new Guid(user.Id)
                 };
 
-                _context.Students.Add(student);
-                var success = await _context.SaveChangesAsync() > 0;
-
-                if (success) return Unit.Value;
-
-                throw new Exception("Problem saving changes");
+                await _studentRepository.Add(student);
+                await _studentRepository.Save();
+                return Unit.Value;
             }
         }
     }

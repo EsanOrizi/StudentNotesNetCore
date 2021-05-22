@@ -18,6 +18,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Persistence;
+using Persistence.Repositories;
 
 namespace API
 {
@@ -38,8 +39,10 @@ namespace API
               opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
           });
 
-            ConfigureServices(services);
+             ConfigureServices(services);
         }
+
+
 
             public void ConfigureProductionServices(IServiceCollection services)
         {
@@ -48,7 +51,7 @@ namespace API
               opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
           });
 
-            ConfigureServices(services);
+                  ConfigureServices(services);
         }
        
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -85,6 +88,10 @@ namespace API
             identityBuilder.AddSignInManager<SignInManager<AppUser>>();
             services.AddScoped<IJwtGenerator, JwtGenerator>();
             services.AddScoped<IUserAccessor, UserAccessor>();
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<IStudentRepository, StudentRepository>();
+            services.AddScoped<IAppUserRepository, AppUserRepository>();
+            services.AddScoped<INoteRepository, NoteRepository>();
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokenKey"]));
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

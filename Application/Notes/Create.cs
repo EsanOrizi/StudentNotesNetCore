@@ -5,7 +5,7 @@ using Domain;
 using MediatR;
 using Persistence;
 using FluentValidation;
-
+using Persistence.Repositories;
 
 namespace Application.Notes
 {
@@ -39,10 +39,10 @@ namespace Application.Notes
         }
         public class Handler : IRequestHandler<Command>
         {
-            private readonly DataContext _context;
-            public Handler(DataContext context)
+            private readonly INoteRepository _noteRepository;
+            public Handler(INoteRepository noteRepository)
             {
-                _context = context;
+                _noteRepository = noteRepository;
             }
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
@@ -58,12 +58,11 @@ namespace Application.Notes
 
                 };
 
-                _context.Notes.Add(note);
-                var success = await _context.SaveChangesAsync() > 0;
+                await _noteRepository.Add(note);
+                await _noteRepository.Save();
 
-                if (success) return Unit.Value;
+                return Unit.Value;
 
-                throw new Exception("Problem saving changes");
             }
         }
     }
