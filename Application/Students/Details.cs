@@ -18,8 +18,8 @@ namespace Application.Students
 
         public class Handler : IRequestHandler<Query, Student>
         {
-            private readonly StudentRepository _studentRepository;
-            public Handler(StudentRepository studentRepository)
+            private readonly IStudentRepository _studentRepository;
+            public Handler(IStudentRepository studentRepository)
             {
                 _studentRepository = studentRepository;
             }
