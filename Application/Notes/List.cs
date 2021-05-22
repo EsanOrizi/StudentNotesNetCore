@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Domain;
 using MediatR;
-using Persistence.Repositories;
+using Persistence.UnitOfWork;
 
 namespace Application.Notes
 {
@@ -13,17 +13,16 @@ namespace Application.Notes
 
         public class Handler : IRequestHandler<Query, List<Note>>
         {
-            private readonly INoteRepository _noteRepository;
-            public Handler(INoteRepository noteRepository)
+            private readonly IUnitOfWork _unitOfWork;
+            public Handler(IUnitOfWork  unitOfWork)
             {
-                _noteRepository = noteRepository;
+                _unitOfWork  = unitOfWork;
 
             }
 
             public async Task<List<Note>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var notes = await _noteRepository.GetAll();
-
+                var notes = await _unitOfWork.Notes.GetAll();
                 return notes;
             }
         }

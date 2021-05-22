@@ -5,7 +5,7 @@ using MediatR;
 using FluentValidation;
 using System.Net;
 using Application.Errors;
-using Persistence.Repositories;
+using Persistence.UnitOfWork;
 
 namespace Application.Notes
 {
@@ -38,16 +38,16 @@ namespace Application.Notes
 
         public class Handler : IRequestHandler<Command>
         {
-            private readonly INoteRepository _noteRepository;
-            public Handler(INoteRepository noteRepository)
+            private readonly IUnitOfWork  _unitOfWork;
+            public Handler(IUnitOfWork unitOfWork)
             {
-                _noteRepository = noteRepository;
+                _unitOfWork  = unitOfWork;
             }
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
 
-                var note =  await _noteRepository.GetById(request.Id);
+                var note =  await _unitOfWork.Notes.GetById(request.Id);
 
                 if (note == null)
                     throw new RestException(HttpStatusCode.NotFound, new { note = "Not Found" });
@@ -58,8 +58,8 @@ namespace Application.Notes
                 note.DateAdded = request.DateAdded ?? note.DateAdded;
                 note.StudentId = request.StudentId ?? note.StudentId;
 
-                await _noteRepository.Save();
-               
+                _unitOfWork.Complete();
+
                 return Unit.Value;
 
             }

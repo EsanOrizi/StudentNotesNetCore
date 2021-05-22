@@ -19,6 +19,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Persistence;
 using Persistence.Repositories;
+using Persistence.UnitOfWork;
 
 namespace API
 {
@@ -92,6 +93,7 @@ namespace API
             services.AddScoped<IStudentRepository, StudentRepository>();
             services.AddScoped<IAppUserRepository, AppUserRepository>();
             services.AddScoped<INoteRepository, NoteRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokenKey"]));
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

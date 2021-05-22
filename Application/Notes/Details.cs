@@ -5,7 +5,7 @@ using Domain;
 using MediatR;
 using System.Net;
 using Application.Errors;
-using Persistence.Repositories;
+using Persistence.UnitOfWork;
 
 namespace Application.Notes
 {
@@ -18,15 +18,15 @@ namespace Application.Notes
 
         public class Handler : IRequestHandler<Query, Note>
         {
-            private readonly INoteRepository _noteRepository;
-            public Handler(INoteRepository noteRepository)
+            private readonly IUnitOfWork  _unitOfWork;
+            public Handler(IUnitOfWork  unitOfWork)
             {
-                _noteRepository = noteRepository;
+                _unitOfWork = unitOfWork;
             }
 
             public async Task<Note> Handle(Query request, CancellationToken cancellationToken)
             {
-                var note = await _noteRepository.GetById(request.Id);
+                var note = await _unitOfWork.Notes.GetById(request.Id);
 
                 if (note == null)
                     throw new RestException(HttpStatusCode.NotFound, new { note = "Not Found" });

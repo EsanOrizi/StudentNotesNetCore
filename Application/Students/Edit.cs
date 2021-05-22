@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Application.Errors;
 using FluentValidation;
 using MediatR;
-using Persistence.Repositories;
+using Persistence.UnitOfWork;
 
 namespace Application.Students
 {
@@ -37,16 +37,16 @@ namespace Application.Students
         }
         public class Handler : IRequestHandler<Command>
         {
-            private readonly IStudentRepository _studentRepository;
-            public Handler(IStudentRepository studentRepository)
+            private readonly IUnitOfWork  _unitOfWork;
+            public Handler(IUnitOfWork  unitOfWork)
             {
-                _studentRepository = studentRepository;
+                _unitOfWork  = unitOfWork;
             }
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
 
-                var student = await _studentRepository.GetById(request.Id);
+                var student = await _unitOfWork.Students.GetById(request.Id);
 
                 if (student == null)
                     throw new RestException(HttpStatusCode.NotFound, new { student = "Not Found" });
@@ -56,7 +56,7 @@ namespace Application.Students
                 student.Phone = request.Phone ?? student.Phone;
                 student.Rate = request.Rate ?? student.Rate;
 
-                await _studentRepository.Save();
+                _unitOfWork.Complete();
 
                 return Unit.Value;
 

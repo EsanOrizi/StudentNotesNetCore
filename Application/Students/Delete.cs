@@ -2,7 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Persistence.Repositories;
+using Persistence.UnitOfWork;
 
 namespace Application.Students
 {
@@ -16,20 +16,20 @@ namespace Application.Students
 
         public class Handler : IRequestHandler<Command>
         {
-            private readonly IStudentRepository _studentRepository;
+            private readonly IUnitOfWork  _unitOfWork;
 
-            public Handler(IStudentRepository studentRepository)
+            public Handler(IUnitOfWork  unitOfWork)
             {
-                _studentRepository = studentRepository;
+                _unitOfWork  = unitOfWork;
             }
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
 
-                var student = await _studentRepository.GetById(request.Id);
+                var student = await _unitOfWork.Students.GetById(request.Id);
 
-                _studentRepository.Remove(student);
-                await _studentRepository.Save();
+                _unitOfWork.Students.Remove(student);
+                _unitOfWork.Complete();
 
                 return Unit.Value;
 

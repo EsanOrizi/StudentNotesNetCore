@@ -3,9 +3,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Domain;
 using MediatR;
-using Persistence;
 using FluentValidation;
-using Persistence.Repositories;
+using Persistence.UnitOfWork;
 
 namespace Application.Notes
 {
@@ -39,10 +38,10 @@ namespace Application.Notes
         }
         public class Handler : IRequestHandler<Command>
         {
-            private readonly INoteRepository _noteRepository;
-            public Handler(INoteRepository noteRepository)
+            private readonly IUnitOfWork  _unitOfWork ;
+            public Handler(IUnitOfWork  unitOfWork)
             {
-                _noteRepository = noteRepository;
+                _unitOfWork  = unitOfWork;
             }
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
@@ -58,8 +57,8 @@ namespace Application.Notes
 
                 };
 
-                await _noteRepository.Add(note);
-                await _noteRepository.Save();
+                await _unitOfWork.Notes.Add(note);
+                _unitOfWork.Complete();
 
                 return Unit.Value;
 

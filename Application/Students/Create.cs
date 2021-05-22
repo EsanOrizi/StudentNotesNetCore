@@ -6,6 +6,7 @@ using Domain;
 using FluentValidation;
 using MediatR;
 using Persistence.Repositories;
+using Persistence.UnitOfWork;
 
 namespace Application.Students
 {
@@ -40,12 +41,12 @@ namespace Application.Students
         {
             private readonly IAppUserRepository _appUserRepository;
             private readonly IUserAccessor _userAccessor;
-            private readonly IStudentRepository _studentRepository;
-            public Handler(IAppUserRepository appUserRepository, IUserAccessor userAccessor, IStudentRepository studentRepository)
+            private readonly IUnitOfWork  _unitOfWork;
+            public Handler(IAppUserRepository appUserRepository, IUserAccessor userAccessor, IUnitOfWork  unitOfWork)
             {
                 _userAccessor = userAccessor;
                 _appUserRepository = appUserRepository;
-                _studentRepository = studentRepository;
+                _unitOfWork = unitOfWork;
 
             }
 
@@ -64,8 +65,8 @@ namespace Application.Students
                     AppUserId = new Guid(user.Id)
                 };
 
-                await _studentRepository.Add(student);
-                await _studentRepository.Save();
+                await _unitOfWork.Students.Add(student);
+                _unitOfWork.Complete();
                 return Unit.Value;
             }
         }
