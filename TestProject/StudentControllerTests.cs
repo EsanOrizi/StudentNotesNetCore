@@ -48,12 +48,13 @@ namespace TestProject
             var student = await _studentsController.Details(studentId);
 
             // Assert
-            Assert.Equal(testStudent.Id, student.Value.Id);
-            Assert.Equal(testStudent.Name, student.Value.Name);
-            Assert.Equal(testStudent.Address, student.Value.Address);
-            Assert.Equal(testStudent.Phone, student.Value.Phone);
-            Assert.Equal(testStudent.Rate, student.Value.Rate);
-        }
+            student.Value.Id.Should().Be(testStudent.Id);
+            student.Value.Name.Should().Be(testStudent.Name);
+            student.Value.Address.Should().Be(testStudent.Address);
+            student.Value.Phone.Should().Be(testStudent.Phone);
+            student.Value.Rate.Should().Be(testStudent.Rate);
+
+          }
 
 
         [Fact]
@@ -64,10 +65,11 @@ namespace TestProject
                 .ReturnsAsync(() => null);
 
             // Act
+            Func<Task> nullStudent =  () => _studentsController.Details(Guid.NewGuid());
             
-            // Assert
-            await Assert.ThrowsAsync<RestException>(() =>  _studentsController.Details(Guid.NewGuid()));
-       
+           // Assert
+           //  await Assert.ThrowsAsync<RestException>(nullStudent);
+            nullStudent.Should().Throw<RestException>();
         }
         
         
