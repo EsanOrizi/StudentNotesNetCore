@@ -19,7 +19,9 @@ namespace API.Controllers
         private readonly IAppUserRepository _appUserRepository;
         private readonly IUserAccessor _userAccessor;
         private readonly IUnitOfWork _unitOfWork;
-        public StudentsController(IAppUserRepository appUserRepository, IUserAccessor userAccessor, IUnitOfWork unitOfWork)
+        
+        public StudentsController(IAppUserRepository appUserRepository,
+                    IUserAccessor userAccessor, IUnitOfWork unitOfWork)
         {
             _userAccessor = userAccessor;
             _appUserRepository = appUserRepository;
@@ -30,8 +32,7 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Student>>> List()
         {
-            var user = await _appUserRepository.FindOne(x =>
-              x.UserName == _userAccessor.GetCurrentUsername());
+            var user = await _appUserRepository.FindOne(x => x.UserName == _userAccessor.GetCurrentUsername());
 
             var students = (List<Student>)await _unitOfWork.Students.FindAll(x => x.AppUserId == new Guid(user.Id));
 
@@ -93,6 +94,9 @@ namespace API.Controllers
         {
             var student = await _unitOfWork.Students.GetById(id);
 
+            if (student == null)
+                throw new RestException(HttpStatusCode.NotFound, new { student = "Not Found" });
+            
             _unitOfWork.Students.Remove(student);
             _unitOfWork.Complete();
 
