@@ -1,7 +1,6 @@
 using Application.Errors;
 using Application.Interfaces;
 using Domain;
-using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Persistence.Repositories;
@@ -52,27 +51,29 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Unit>> Create(Student student)
+        public async Task<ActionResult<Student>> Create(Student student)
         {
+      
             var user = await _appUserRepository.FindOne(x =>
               x.UserName == _userAccessor.GetCurrentUsername());
 
-            var newStudent = new Student
+            Student newStudent = new Student
             {
                 Id = student.Id,
                 Name = student.Name,
                 Address = student.Address,
                 Phone = student.Phone,
-                AppUserId = new Guid(user.Id)
+                AppUserId = new Guid(user.Id),
+                Rate = student.Rate,
             };
 
-            await _unitOfWork.Students.Add(student);
-            _unitOfWork.Complete();
-            return Unit.Value;
+            await _unitOfWork.Students.Add(newStudent);
+             _unitOfWork.Complete();
+            return student;
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<Unit>> Edit(Student student)
+        public async Task<ActionResult<Student>> Edit(Student student)
         {
             var studentInDatabase = await _unitOfWork.Students.GetById(student.Id);
 
@@ -86,11 +87,11 @@ namespace API.Controllers
 
             _unitOfWork.Complete();
 
-            return Unit.Value;
+            return student;
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Unit>> Delete(Guid id)
+        public async Task<ActionResult<Student>> Delete(Guid id)
         {
             var student = await _unitOfWork.Students.GetById(id);
 
@@ -100,7 +101,7 @@ namespace API.Controllers
             _unitOfWork.Students.Remove(student);
             _unitOfWork.Complete();
 
-            return Unit.Value;
+            return student;
         }
 
     }

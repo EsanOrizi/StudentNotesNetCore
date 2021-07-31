@@ -1,6 +1,5 @@
 using Application.Errors;
 using Domain;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Persistence.UnitOfWork;
 using System;
@@ -43,7 +42,7 @@ namespace API.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult<Unit>> Create(Note note)
+        public async Task<ActionResult<Note>> Create(Note note)
         {
             var newNote = new Note
             {
@@ -59,11 +58,11 @@ namespace API.Controllers
             await _unitOfWork.Notes.Add(note);
             _unitOfWork.Complete();
 
-            return Unit.Value;
+            return note;
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<Unit>> Edit(Note note)
+        public async Task<ActionResult<Note>> Edit(Note note)
         {
             var noteInDatabase = await _unitOfWork.Notes.GetById(note.Id);
 
@@ -78,12 +77,12 @@ namespace API.Controllers
 
             _unitOfWork.Complete();
 
-            return Unit.Value;
+            return note;
         }
 
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Unit>> Delete(Guid id)
+        public async Task<ActionResult<Note>> Delete(Guid id)
         {
             var note = await _unitOfWork.Notes.GetById(id);
 
@@ -92,7 +91,7 @@ namespace API.Controllers
 
             _unitOfWork.Notes.Remove(note);
             _unitOfWork.Complete();
-            return Unit.Value;
+            return note;
         }
     }
 }
