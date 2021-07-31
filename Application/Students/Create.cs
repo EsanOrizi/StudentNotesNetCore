@@ -62,6 +62,7 @@ namespace Application.Students
                     Name = request.Name,
                     Address = request.Address,
                     Phone = request.Phone,
+                    Rate = request.Rate,
                     AppUserId = new Guid(user.Id)
                 };
 
