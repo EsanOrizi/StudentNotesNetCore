@@ -5,7 +5,6 @@ using Application.Errors;
 using Application.Interfaces;
 using Domain;
 using FluentAssertions;
-using Infrastructure.Security;
 using Moq;
 using Persistence.Repositories;
 using Persistence.UnitOfWork;
@@ -18,25 +17,21 @@ namespace TestProject
         private readonly StudentsController _studentsController;
 
         private readonly Mock<IUnitOfWork> _iUnitOfWorkMock = new Mock<IUnitOfWork>();
-        private readonly Mock<IAppUserRepository> _iAppUserRepository = new Mock<IAppUserRepository>();
-        private readonly Mock<IUserAccessor> _iUserAccessor = new Mock<IUserAccessor>();
+        private readonly Mock<IAppUserRepository> _iAppUserRepositoryMock = new Mock<IAppUserRepository>();
+        private readonly Mock<IUserAccessor> _iUserAccessorMock = new Mock<IUserAccessor>();
 
 
         public StudentControllerTests()
         {
-            _studentsController = new StudentsController(_iAppUserRepository.Object,
-                                     _iUserAccessor.Object, _iUnitOfWorkMock.Object);
+            _studentsController = new StudentsController(_iAppUserRepositoryMock.Object,
+                                     _iUserAccessorMock.Object, _iUnitOfWorkMock.Object);
         }
 
 
-        // List tests
-       
-
-
-        // Details tests
-
+     
+        // Details tests //
         [Fact]
-        public async Task Details_ShouldReturnStudent_WhenStudentExists()
+        public async void Details_ShouldReturnStudent_WhenStudentExists()
         {
             // Arrange
             var studentId = Guid.NewGuid();
@@ -75,18 +70,58 @@ namespace TestProject
             Func<Task> nullStudent = () => _studentsController.Details(Guid.NewGuid());
 
             // Assert
-            //  await Assert.ThrowsAsync<RestException>(nullStudent);
             nullStudent.Should().Throw<RestException>();
         }
 
+     
+
+        // Edit tests //
+        [Fact]
+        public async void Edit_ShouldEditStudent_WhenStudentExists()
+        {
+            // Arrange
+            var studentId = Guid.NewGuid();
+            var testStudentInDatabase = new Student
+            {
+                Id = studentId,
+                Name = "Esan",
+                Address = "3 Anvil Court",
+                Phone = "07523242324",
+                Rate = 20
+            };
+
+          
+            _iUnitOfWorkMock.Setup(x => x.Students.GetById(studentId)).ReturnsAsync(testStudentInDatabase);
 
 
-        // Edit tests
+            var testStudentEdited = new Student
+            {
+                Id = studentId,
+                Name = "Massa",
+                Address = "40 Denzil Avenue",
+                Phone = "07523242324",
+                Rate = 30
+            };
 
 
+            // Act
+             await _studentsController.Edit(testStudentEdited);
+
+            // Assert
+            testStudentInDatabase.Id.Should().Be(testStudentEdited.Id);
+            testStudentInDatabase.Name.Should().Be(testStudentEdited.Name);
+            testStudentInDatabase.Address.Should().Be(testStudentEdited.Address);
+            testStudentInDatabase.Phone.Should().Be(testStudentEdited.Phone);
+            testStudentInDatabase.Rate.Should().Be(testStudentEdited.Rate);
+
+            _iUnitOfWorkMock.Verify(x => x.Complete(), Times.Once);
+
+        }
+
+                
         // Delete test
 
-        [Fact]
+       [Fact]
        public async void Delete_ToRunComplete_WhenStudentExists()
        {
            // Arrange
@@ -122,7 +157,6 @@ namespace TestProject
            Func<Task> nullStudent =  () => _studentsController.Details(Guid.NewGuid());
             
            // Assert
-           //  await Assert.ThrowsAsync<RestException>(nullStudent);
            nullStudent.Should().Throw<RestException>();
            
        }
