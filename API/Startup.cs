@@ -1,5 +1,6 @@
 using System.Text;
 using API.Middleware;
+using API.Services;
 using Application.Interfaces;
 using Application.Students;
 using Domain;
@@ -94,6 +95,8 @@ namespace API
             services.AddScoped<IAppUserRepository, AppUserRepository>();
             services.AddScoped<INoteRepository, NoteRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IStudentService, StudentService>();
+
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokenKey"]));
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
