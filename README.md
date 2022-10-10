@@ -1,6 +1,7 @@
 # StudentNotesNetCore
 
 * Published to Azure
+* 
    https://studentnotes.azurewebsites.net/
 
 A note taking app for driving instructors.
@@ -24,6 +25,3 @@ A new instructor can register, log in, add/edit/delete pupils, can add notes for
    * React router
    * Semantic UI 
    * Client side validation
-
-* Published to Azure
-
