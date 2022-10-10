@@ -1,5 +1,8 @@
 # StudentNotesNetCore
 
+* Published to Azure
+   https://studentnotes.azurewebsites.net/
+
 A note taking app for driving instructors.
 
 A new instructor can register, log in, add/edit/delete pupils, can add notes for each pupil to track progress, and can also add/edit/delete each note.
